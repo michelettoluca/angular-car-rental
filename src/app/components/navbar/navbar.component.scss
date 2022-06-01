@@ -1,0 +1,40 @@
+.wrapper {
+   padding: 1rem 0;
+
+   border-bottom: 1px solid lightgrey;
+}
+
+nav {
+   display: flex;
+   align-items: center;
+   column-gap: 2rem;
+
+   margin: 0 auto;
+
+   max-width: 1200px;
+
+   .logo {
+      font-size: 1.25rem;
+      font-weight: 600;
+   }
+
+   .nav-items {
+      display: flex;
+      column-gap: 1rem;
+
+      & .link {
+         color: lightskyblue;
+
+         &.--active {
+            color: red;
+         }
+      }
+
+      &.auth {
+         margin-left: auto;
+      }
+   }
+}
+
+
+
