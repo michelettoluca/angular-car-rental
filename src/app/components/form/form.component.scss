@@ -1,0 +1,30 @@
+.form {
+   display: grid;
+   row-gap: .5rem;
+
+   //padding: 1rem;
+
+   //border: 1px solid #DDDDDD;
+   //border-radius: .5rem;
+
+   .field {
+      display: grid;
+      row-gap: .25rem;
+
+      .label {
+         font-weight: 600;
+      }
+
+      .input,
+      .select {
+         width: 100%;
+      }
+
+      .checkbox,
+      .radio-option {
+         display: flex;
+         align-items: center;
+         column-gap: .25rem;
+      }
+   }
+}

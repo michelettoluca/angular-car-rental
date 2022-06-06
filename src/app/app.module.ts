@@ -15,6 +15,7 @@ import { FormComponent } from "./components/form/form.component";
 import { UsersComponent } from "./components/users/users.component";
 import { ButtonComponent } from "./components/button/button.component";
 import { ReactiveFormsModule } from "@angular/forms";
+
 import { FormEntries } from "./components/form/pipes/entries";
 
 @NgModule({
@@ -27,7 +28,7 @@ import { FormEntries } from "./components/form/pipes/entries";
       FormComponent,
       UsersComponent,
       ButtonComponent,
-      FormEntries
+      FormEntries,
    ],
    imports: [
       HttpClientModule,

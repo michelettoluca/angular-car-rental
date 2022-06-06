@@ -1,42 +1,61 @@
-<!--<pre>formGroup: {{formGroup.value | json}}</pre>-->
+<form
+   [formGroup]="formGroup"
+   (submit)="handleSubmit()"
+   class="form"
+>
+   <div
+      *ngFor="let formField of config"
+      class="field">
+      <label class="label" for="{{formField.key}}">
+         {{formField.label}}
+      </label>
+      <ng-container [ngSwitch]="formField.type">
+         <select
+            *ngSwitchCase="formFieldType.DROPDOWN"
+            [formControlName]="formField.key">
+            <option
+               *ngFor="let option of formField.options"
+               [value]="option.value">
+               {{option.label}}
+            </option>
+         </select>
 
-<!--<form [formGroup]="formGroup">-->
-<!--   <div *ngFor="let formField of config | entries">-->
-<!--      <label for="{{formField.key}}">{{formField["value"].label}}:</label>-->
-<!--      <ng-container ngSwitch="formFiled['value'].type">-->
-<!--         <select-->
-<!--            *ngSwitchCase="'select'"-->
-<!--            [value]="formField['value'].defaultValue"-->
-<!--            formControlName="{{formField.key}}">-->
-<!--            <option *ngFor="let option of formField['value'].options | entries" [value]="option['value'].value">-->
-<!--               {{option['value'].label}}-->
-<!--            </option>-->
-<!--         </select>-->
-<!--         <input-->
-<!--            *ngSwitchCase="'select'"-->
-<!--            id="test"-->
-<!--            type="{{formField['value'].type}}"-->
-<!--            formControlName="{{formField.key}}">-->
-<!--      </ng-container>-->
-<!--   </div>-->
-<!--</form>-->
+         <ng-container *ngSwitchCase="formFieldType.RADIO_GROUP">
+            <div
+               *ngFor="let option of formField.options; let i = index"
+               class="radio-option">
+               <input
+                  type="radio"
+                  [name]="formField.key"
+                  [id]="option.value"
+                  [value]="option.value"
+                  [formControlName]="formField.key"/>
 
-<ul>
-   <ng-container
-      *ngTemplateOutlet="recursiveListTmpl; context:{ controls: config | entries }">
-   </ng-container>
-</ul>
-
-<ng-template #recursiveListTmpl let-controls="controls">
-   <li *ngFor="let control of controls | entries">
-      <ng-container *ngIf="control.type === 'array'">
-         <ng-container
-            *ngTemplateOutlet="recursiveListTmpl; context:{ list: control.options }">
+               <label [for]="option.value">{{option.label}}</label>
+            </div>
          </ng-container>
+
+         <div
+            *ngSwitchCase="formFieldType.CHECKBOX"
+            class="checkbox">
+            <input
+               type="checkbox"
+               [id]="formField.key"
+               [value]="formField.value"
+               [checked]="formField.selected"
+               [formControlName]="formField.key"/>
+
+            <label [for]="formField.key">{{formField.label}}</label>
+         </div>
+
+         <input
+            *ngSwitchCase="formFieldType.INPUT"
+            class="input"
+            [type]="formField.controlType"
+            [placeholder]="formField.placeholder"
+            [formControlName]="formField.key"/>
+
       </ng-container>
-
-      <pre *ngIf="control.type !== 'array'">{{control | json}}</pre>
-   </li>
-</ng-template>
-
-<button (click)="resetForm()">Reset</button>
+   </div>
+   <input type="submit"/>
+</form>

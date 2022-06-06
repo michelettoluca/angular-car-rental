@@ -1,33 +1,121 @@
-export interface FormConfig {
-   [key: string]: FormField<any>
+import { Validators } from "@angular/forms";
+
+export enum FormFieldType {
+   DROPDOWN,
+   INPUT,
+   RADIO_GROUP,
+   CHECKBOX
 }
 
-export type FormField<T> = InputField<T> | SelectField<T> | ArrayField<T>
-
-interface BaseFormField<T> {
-   type: string
+interface BaseFormFieldOptions<T> {
+   key: string
    label: string
-   defaultValue?: T
-   required?: boolean
+   name: string
+   order: number
+   value?: T
+   validators?: Validators[]
 }
 
-export interface InputField<T> extends BaseFormField<T> {
-   type: "text" | "password" | "date"
-   placeholder?: string
+interface InputFieldOptions<T> extends BaseFormFieldOptions<T> {
+   controlType: ControlType
+   placeholder: string
 }
 
-export interface SelectField<T> extends BaseFormField<T> {
-   type: "select"
-   options: SelectOption<T>[]
+type ControlType = "text" | "date" | "password" | "number"
+
+interface DropdownFieldOptions<T> extends BaseFormFieldOptions<T> {
+   options: DropdownOption<T>[]
 }
 
-export interface ArrayField<T> extends BaseFormField<T> {
-   type: "array"
-   item: FormField<T>
-}
-
-
-export interface SelectOption<T> {
+interface DropdownOption<T> {
    label: string
    value: T
 }
+
+interface CheckboxOptions<T> extends BaseFormFieldOptions<T> {
+   checked?: boolean
+}
+
+interface RadioGroupOptions<T> extends BaseFormFieldOptions<T> {
+   options: RadioGroupOption<T>[]
+}
+
+interface RadioGroupOption<T> {
+   label: string
+   value: T
+}
+
+
+export class BaseFormField<T> {
+   key: string;
+   name: string;
+   label: string;
+   type!: FormFieldType
+   order: number;
+   value: T | undefined;
+   validators?: Validators[];
+
+   constructor({
+                  key,
+                  label,
+                  name,
+                  order,
+                  value,
+                  validators
+               }: BaseFormFieldOptions<T>) {
+      this.key = key;
+      this.name = name;
+      this.label = label;
+      this.order = order;
+      this.value = value;
+      this.validators = validators || [];
+   }
+}
+
+export class DropdownFormField<T> extends BaseFormField<T> {
+   options: DropdownOption<T>[]
+
+   constructor({ options, ...rest }: DropdownFieldOptions<T>) {
+      super(rest);
+
+      this.type = FormFieldType.DROPDOWN;
+      this.options = options;
+   }
+}
+
+export class InputFormField<T> extends BaseFormField<T> {
+   controlType: ControlType
+   placeholder: string
+
+   constructor({ controlType, placeholder, ...rest }: InputFieldOptions<T>) {
+      super(rest);
+
+      this.type = FormFieldType.INPUT;
+      this.controlType = controlType;
+      this.placeholder = placeholder
+   }
+}
+
+export class CheckboxFormField<T> extends BaseFormField<T> {
+   checked: boolean;
+
+   constructor({ checked, ...rest }: CheckboxOptions<T>) {
+      super(rest);
+
+      this.type = FormFieldType.CHECKBOX;
+      this.checked = checked || false;
+   }
+}
+
+export class RadioGroupFormField<T> extends BaseFormField<T> {
+   options: RadioGroupOption<T>[]
+
+   constructor({ value, options, ...rest }: RadioGroupOptions<T>) {
+      super(rest);
+
+      this.type = FormFieldType.RADIO_GROUP;
+      this.options = options;
+      this.value = value || options[0].value;
+   }
+}
+

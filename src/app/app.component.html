@@ -2,6 +2,9 @@
 <div class="container">
    <!--   <app-button [config]="addButtonDark" (onClick)="log($event)"></app-button>-->
    <!--   <app-button [config]="addButtonLight" (onClick)="log($event)"></app-button>-->
-   <app-form [config]="formConfig"></app-form>
+   <div class="aa">
+
+      <app-form [config]="formConfig" (onSubmit)="log($event)"></app-form>
+   </div>
    <router-outlet></router-outlet>
 </div>

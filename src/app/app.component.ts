@@ -12,7 +12,7 @@ export class AppComponent {
    addButtonDark = buttonConfig.saveDark;
    addButtonLight = buttonConfig.saveLight;
 
-   formConfig = formConfig.formConfig;
+   formConfig = formConfig.signIn;
 
    log(arg: any) {
       console.log(arg)

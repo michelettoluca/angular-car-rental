@@ -17,3 +17,11 @@ html {
    font-family: sans-serif;
    font-size: 0.875rem;
 }
+
+input,
+select {
+   padding: .5rem .75rem;
+
+   border: 1px solid #DDDDDD;
+   border-radius: .5rem;
+}
