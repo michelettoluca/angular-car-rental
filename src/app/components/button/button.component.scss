@@ -1,0 +1,27 @@
+.button {
+   padding: .5rem 1rem;
+
+
+   color: #666666;
+   background-color: #FFFFFF;
+
+   border: 1px solid #DDDDDD;
+   border-radius: .5rem;
+
+   cursor: pointer;
+
+   &:active {
+      filter: brightness(0.95);
+   }
+
+   &.dark {
+      border: 1px solid transparent;
+
+      color: #DDDDDD;
+      background-color: #111111;
+
+      &:active {
+         filter: brightness(1.15);
+      }
+   }
+}

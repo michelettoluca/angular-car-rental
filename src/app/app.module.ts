@@ -11,8 +11,11 @@ import { InMemoryDataService } from "./services/data.service";
 import { VehiclesComponent } from "./components/vehicles/vehicles.component";
 import { ProfileComponent } from "./components/profile/profile.component";
 import { ReservationsComponent } from "./components/reservations/reservations.component";
-import { FormComponent } from './components/form/form.component';
-import { UsersComponent } from './components/users/users.component';
+import { FormComponent } from "./components/form/form.component";
+import { UsersComponent } from "./components/users/users.component";
+import { ButtonComponent } from "./components/button/button.component";
+import { ReactiveFormsModule } from "@angular/forms";
+import { FormEntries } from "./components/form/pipes/entries";
 
 @NgModule({
    declarations: [
@@ -23,6 +26,8 @@ import { UsersComponent } from './components/users/users.component';
       ReservationsComponent,
       FormComponent,
       UsersComponent,
+      ButtonComponent,
+      FormEntries
    ],
    imports: [
       HttpClientModule,
@@ -30,6 +35,7 @@ import { UsersComponent } from './components/users/users.component';
       BrowserModule,
       AppRoutingModule,
       TableModule,
+      ReactiveFormsModule
    ],
    providers: [],
    bootstrap: [AppComponent]

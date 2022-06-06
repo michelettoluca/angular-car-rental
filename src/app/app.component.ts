@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
-import { User, Vehicle } from "./services/data.service";
+import * as buttonConfig from "./components/button/button.config"
+import * as formConfig from "./components/form/form.config"
 
 
 @Component({
@@ -8,6 +9,12 @@ import { User, Vehicle } from "./services/data.service";
    styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
+   addButtonDark = buttonConfig.saveDark;
+   addButtonLight = buttonConfig.saveLight;
 
+   formConfig = formConfig.formConfig;
 
+   log(arg: any) {
+      console.log(arg)
+   }
 }

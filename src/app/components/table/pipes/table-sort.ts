@@ -6,10 +6,9 @@ export class TSort implements PipeTransform {
    transform(data: TableData[], order?: Order): TableData[] {
       if (!order) return data;
 
-      return [...data].sort((a, b) =>
-         a[order.column].toLowerCase() >= b[order.column].toLowerCase()
-            ? -1 * order.type
-            : 1 * order.type
+      return [...data].sort((a, b) => {
+            return (a[order.column] + "").localeCompare(b[order.column] + "") * -order.type
+         }
       )
    }
 }

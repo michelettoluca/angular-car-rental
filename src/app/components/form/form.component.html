@@ -1,3 +1,42 @@
-<form>
+<!--<pre>formGroup: {{formGroup.value | json}}</pre>-->
 
-</form>
+<!--<form [formGroup]="formGroup">-->
+<!--   <div *ngFor="let formField of config | entries">-->
+<!--      <label for="{{formField.key}}">{{formField["value"].label}}:</label>-->
+<!--      <ng-container ngSwitch="formFiled['value'].type">-->
+<!--         <select-->
+<!--            *ngSwitchCase="'select'"-->
+<!--            [value]="formField['value'].defaultValue"-->
+<!--            formControlName="{{formField.key}}">-->
+<!--            <option *ngFor="let option of formField['value'].options | entries" [value]="option['value'].value">-->
+<!--               {{option['value'].label}}-->
+<!--            </option>-->
+<!--         </select>-->
+<!--         <input-->
+<!--            *ngSwitchCase="'select'"-->
+<!--            id="test"-->
+<!--            type="{{formField['value'].type}}"-->
+<!--            formControlName="{{formField.key}}">-->
+<!--      </ng-container>-->
+<!--   </div>-->
+<!--</form>-->
+
+<ul>
+   <ng-container
+      *ngTemplateOutlet="recursiveListTmpl; context:{ controls: config | entries }">
+   </ng-container>
+</ul>
+
+<ng-template #recursiveListTmpl let-controls="controls">
+   <li *ngFor="let control of controls | entries">
+      <ng-container *ngIf="control.type === 'array'">
+         <ng-container
+            *ngTemplateOutlet="recursiveListTmpl; context:{ list: control.options }">
+         </ng-container>
+      </ng-container>
+
+      <pre *ngIf="control.type !== 'array'">{{control | json}}</pre>
+   </li>
+</ng-template>
+
+<button (click)="resetForm()">Reset</button>

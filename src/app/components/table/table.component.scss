@@ -1,3 +1,22 @@
-table, td, th {
-   border: 1px solid gray;
+table {
+   padding: .5rem 1rem;
+
+   border: 1px solid #DDDDDD;
+   border-radius: .5rem;
+
+   td, th {
+      padding: .5rem 0;
+   }
+
+   th {
+      text-align: start;
+
+      cursor: pointer;
+      user-select: none;
+   }
+
+   td:not(:last-child),
+   th:not(:last-child) {
+      padding-right: 3rem;
+   }
 }
