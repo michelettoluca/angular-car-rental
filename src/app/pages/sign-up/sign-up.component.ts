@@ -1,15 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import * as formConfig from "../../configs/form";
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss']
+   selector: "app-sign-up",
+   templateUrl: "./sign-up.component.html",
+   styleUrls: ["./sign-up.component.scss"]
 })
 export class SignUpComponent implements OnInit {
 
-  constructor() { }
+   signUpConfig = formConfig.signUp;
 
-  ngOnInit(): void {
-  }
+   constructor() {
+   }
 
+   ngOnInit(): void {
+   }
+   
+   log(arg: any) {
+      console.log(arg)
+   }
 }

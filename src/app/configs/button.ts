@@ -1,4 +1,4 @@
-import { ButtonConfig, ButtonVariant } from "./button.types";
+import { ButtonConfig, ButtonVariant } from "../components/button/button.types";
 
 export const saveDark: ButtonConfig = {
    variant: ButtonVariant.DARK,
@@ -9,4 +9,9 @@ export const saveDark: ButtonConfig = {
 export const saveLight: ButtonConfig = {
    text: "Save light",
    action: "SAVE"
+}
+
+export const editReservation: ButtonConfig = {
+   text: "Edit reservation",
+   action: "EDIT_RESERVATION"
 }

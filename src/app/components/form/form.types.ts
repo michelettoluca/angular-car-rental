@@ -11,14 +11,13 @@ interface BaseFormFieldOptions<T> {
    key: string
    label: string
    name: string
-   order: number
    value?: T
    validators?: Validators[]
 }
 
 interface InputFieldOptions<T> extends BaseFormFieldOptions<T> {
    controlType: ControlType
-   placeholder: string
+   placeholder?: string
 }
 
 type ControlType = "text" | "date" | "password" | "number"
@@ -51,7 +50,6 @@ export class BaseFormField<T> {
    name: string;
    label: string;
    type!: FormFieldType
-   order: number;
    value: T | undefined;
    validators?: Validators[];
 
@@ -59,14 +57,12 @@ export class BaseFormField<T> {
                   key,
                   label,
                   name,
-                  order,
                   value,
                   validators
                }: BaseFormFieldOptions<T>) {
       this.key = key;
       this.name = name;
       this.label = label;
-      this.order = order;
       this.value = value;
       this.validators = validators || [];
    }
@@ -92,7 +88,7 @@ export class InputFormField<T> extends BaseFormField<T> {
 
       this.type = FormFieldType.INPUT;
       this.controlType = controlType;
-      this.placeholder = placeholder
+      this.placeholder = placeholder || "";
    }
 }
 

@@ -21,6 +21,7 @@ import { SignUpComponent } from "./pages/sign-up/sign-up.component";
 import { UsersComponent } from "./pages/users/users.component";
 
 import { InMemoryDataService } from "./services/data.service";
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { InMemoryDataService } from "./services/data.service";
       FormEntries,
       SignInComponent,
       SignUpComponent,
+      AdminDashboardComponent,
    ],
    imports: [
       HttpClientModule,

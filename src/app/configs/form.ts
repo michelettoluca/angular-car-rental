@@ -8,8 +8,7 @@ export const signIn = [
       label: "Username",
       placeholder: "Username",
       controlType: "text",
-      validators: [Validators.required],
-      order: 1,
+      validators: [Validators.required]
    }),
 
    new InputFormField({
@@ -18,8 +17,7 @@ export const signIn = [
       label: "Password",
       placeholder: "Password",
       controlType: "password",
-      validators: [Validators.required],
-      order: 2,
+      validators: [Validators.required]
    }),
 ]
 
@@ -30,8 +28,7 @@ export const signUp = [
       label: "First name",
       placeholder: "First name",
       controlType: "text",
-      validators: [Validators.required],
-      order: 1,
+      validators: [Validators.required]
    }),
 
    new InputFormField({
@@ -40,8 +37,7 @@ export const signUp = [
       label: "Last name",
       placeholder: "Last name",
       controlType: "text",
-      validators: [Validators.required],
-      order: 1,
+      validators: [Validators.required]
    }),
 
    new InputFormField({
@@ -50,8 +46,7 @@ export const signUp = [
       label: "Username",
       placeholder: "Username",
       controlType: "text",
-      validators: [Validators.required],
-      order: 1,
+      validators: [Validators.required]
    }),
 
    new InputFormField({
@@ -60,8 +55,7 @@ export const signUp = [
       label: "Password",
       placeholder: "Password",
       controlType: "password",
-      validators: [Validators.required],
-      order: 2,
+      validators: [Validators.required]
    }),
 
    new InputFormField({
@@ -70,8 +64,25 @@ export const signUp = [
       label: "Repeat password",
       placeholder: "Repeat password",
       controlType: "password",
-      validators: [Validators.required],
-      order: 3,
+      validators: [Validators.required]
+   }),
+]
+
+export const editReservation = [
+   new InputFormField({
+      key: "beginsAt",
+      name: "beginsAt",
+      label: "From",
+      controlType: "date",
+      validators: [Validators.required]
+   }),
+
+   new InputFormField({
+      key: "lastName",
+      name: "lastName",
+      label: "Last name",
+      controlType: "date",
+      validators: [Validators.required]
    }),
 ]
 

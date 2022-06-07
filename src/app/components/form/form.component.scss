@@ -1,43 +1,35 @@
-.form {
+.field {
    display: grid;
-   row-gap: 1rem;
+   row-gap: .5rem;
+   
+   margin-bottom: 1rem;
 
-   //padding: 1rem;
+   .label {
+      font-weight: 600;
+   }
 
-   //border: 1px solid #DDDDDD;
-   //border-radius: .5rem;
+   .input,
+   .select {
+      width: 100%;
 
-   .field {
-      display: grid;
-      row-gap: .5rem;
-
-      .label {
-         font-weight: 600;
-      }
-
-      .input,
-      .select {
-         width: 100%;
-
-         &.ng-invalid.ng-touched {
-            outline: 2px solid red;
-         }
-      }
-
-      .checkbox,
-      .radio-option {
-         display: flex;
-         align-items: center;
-         column-gap: .25rem;
+      &.ng-invalid.ng-touched {
+         outline: 2px solid red;
       }
    }
 
-   input[type=submit] {
-      margin-top: 1rem;
-
-      &:not(:disabled) {
-         cursor: pointer;
-      }
+   .checkbox,
+   .radio-option {
+      display: flex;
+      align-items: center;
+      column-gap: .25rem;
    }
 }
 
+input[type=submit] {
+   width: 100%;
+   margin-top: 1rem;
+
+   &:not(:disabled) {
+      cursor: pointer;
+   }
+}

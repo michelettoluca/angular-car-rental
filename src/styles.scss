@@ -25,3 +25,16 @@ select {
    border: 1px solid #DDDDDD;
    border-radius: .5rem;
 }
+
+
+.form {
+   display: grid;
+   row-gap: 1rem;
+
+   padding: 1.5rem;
+
+   border: 1px solid #DDDDDD;
+   border-radius: .5rem;
+
+   max-width: 350px;
+}
