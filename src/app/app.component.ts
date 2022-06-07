@@ -12,7 +12,8 @@ export class AppComponent {
    addButtonDark = buttonConfig.saveDark;
    addButtonLight = buttonConfig.saveLight;
 
-   formConfig = formConfig.signIn;
+   signInConfig = formConfig.signIn;
+   signUpConfig = formConfig.signUp;
 
    log(arg: any) {
       console.log(arg)

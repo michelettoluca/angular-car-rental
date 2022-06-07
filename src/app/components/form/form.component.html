@@ -1,7 +1,7 @@
 <form
+   class="form"
    [formGroup]="formGroup"
    (submit)="handleSubmit()"
-   class="form"
 >
    <div
       *ngFor="let formField of config"
@@ -56,6 +56,11 @@
             [formControlName]="formField.key"/>
 
       </ng-container>
+      <span *ngIf="formGroup.get(formField.key)?.touched && formGroup.get(formField.key)?.errors">
+         {{formGroup.get(formField.key)?.errors | json}}
+      </span>
    </div>
-   <input type="submit"/>
+   <input
+      type="submit"
+      [disabled]="formGroup.invalid"/>
 </form>

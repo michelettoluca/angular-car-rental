@@ -22,15 +22,12 @@ export class FormComponent implements OnInit {
    }
 
    ngOnInit(): void {
-
       this.config.forEach((formField) => {
          this.formGroup.setControl(
             formField.key,
             new FormControl(formField.value || "", formField.validators)
          );
       });
-
-      // this.formGroup = new FormGroup(group);
    }
 
    handleSubmit() {
