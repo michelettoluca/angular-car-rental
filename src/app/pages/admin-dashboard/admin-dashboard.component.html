@@ -1,1 +1,7 @@
-<p>admin-dashboard works!</p>
+<ul>
+   <div *ngFor="let user of users$ | async" routerLink="{{user.id}}">
+      {{user.firstName}} {{user.lastName}} | {{user.id}}
+   </div>
+</ul>
+
+<router-outlet></router-outlet>

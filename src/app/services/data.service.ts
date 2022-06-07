@@ -91,6 +91,14 @@ export class InMemoryDataService implements InMemoryDbService {
             endsAt: new Date(),
             status: ReservationStatus.DENIED
          },
+         {
+            id: 13,
+            userId: 16,
+            vehicleId: 11,
+            beginsAt: new Date(),
+            endsAt: new Date(),
+            status: ReservationStatus.PENDING
+         },
       ];
 
       return { users, vehicles, reservations };

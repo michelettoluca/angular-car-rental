@@ -22,6 +22,7 @@ import { UsersComponent } from "./pages/users/users.component";
 
 import { InMemoryDataService } from "./services/data.service";
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
+import { UserDetailsComponent } from './pages/admin-dashboard/user-details/user-details.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard
       SignInComponent,
       SignUpComponent,
       AdminDashboardComponent,
+      UserDetailsComponent,
    ],
    imports: [
       HttpClientModule,
