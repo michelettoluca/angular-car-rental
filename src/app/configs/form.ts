@@ -1,5 +1,5 @@
-import { InputFormField } from "./form.types";
 import { Validators } from "@angular/forms";
+import { InputFormField } from "../components/form/form.types";
 
 export const signIn = [
    new InputFormField({

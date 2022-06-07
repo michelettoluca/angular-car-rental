@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import * as tableConfig from "../table/table.config";
+import * as tableConfig from "../../configs/table";
 import { Reservation } from "../../services/data.service";
 import { Observable } from "rxjs";
 import { ReservationsService } from "../../services/reservations.service";

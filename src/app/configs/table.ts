@@ -1,6 +1,6 @@
-import { TableActionType, TableConfig } from "./table.types";
-import { ReservationStatus, User } from "../../services/data.service";
-import { ReservationsService } from "../../services/reservations.service";
+import { TableActionType, TableConfig } from "../components/table/table.types";
+import { ReservationStatus, User } from "../services/data.service";
+
 
 export const users: TableConfig = {
    headers: [

@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
 import * as buttonConfig from "./components/button/button.config"
-import * as formConfig from "./components/form/form.config"
-
+import * as formConfig from "./configs/form"
 
 @Component({
    selector: "app-root",
@@ -11,7 +10,7 @@ import * as formConfig from "./components/form/form.config"
 export class AppComponent {
    addButtonDark = buttonConfig.saveDark;
    addButtonLight = buttonConfig.saveLight;
-
+   
    signInConfig = formConfig.signIn;
    signUpConfig = formConfig.signUp;
 

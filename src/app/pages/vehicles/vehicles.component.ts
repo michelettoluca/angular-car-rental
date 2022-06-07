@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { VehiclesService } from "../../services/vehicles.service";
 import { Observable } from "rxjs";
 import { Vehicle } from "../../services/data.service";
-import * as tableConfig from "../table/table.config";
+import * as tableConfig from "../../configs/table";
 
 @Component({
    selector: "app-vehicles",

@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { TableActionType, TableEvent } from "../table/table.types";
 import { User } from "../../services/data.service";
-import * as tableConfig from "../table/table.config";
+import * as tableConfig from "../../configs/table";
 import { Observable } from "rxjs";
 import { UsersService } from "../../services/users.service";
+import { TableActionType, TableEvent } from "../../components/table/table.types";
 
 const emptyUser = { firstName: "", lastName: "", username: "", password: "" };
 
