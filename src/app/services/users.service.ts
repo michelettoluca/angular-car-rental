@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { catchError, Observable, of } from "rxjs";
+import { catchError, map, Observable, of } from "rxjs";
 import { User } from "./data.service";
+
 
 @Injectable({
    providedIn: "root"
@@ -33,6 +34,12 @@ export class UsersService {
       return this.http.get<User>(`${this.usersUrl}/${id}`).pipe(
          catchError(this.handleError<User>(`getUser id=${id}`))
       );
+   }
+
+   findOneByUsername(username: string): Observable<User | undefined> {
+      return this.findAll().pipe(
+         map((users) => users.find((user) => user.username === username)),
+      )
    }
 
    add(user: User): Observable<User> {

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { catchError, filter, flatMap, map, Observable, of, pipe } from "rxjs";
+import { catchError, map, Observable, of, } from "rxjs";
 import { Reservation } from "./data.service";
 
 @Injectable({
@@ -55,7 +55,8 @@ export class ReservationsService {
 
    findManyByUserId(id: number): Observable<Reservation[]> {
       return this.findAll().pipe(
-         map((rs) => rs.filter((r) => r.userId === id))
+         map((rs) => rs.filter((r) => r.userId === id)),
+         catchError(this.handleError<Reservation[]>("findManyByUserId", []))
       )
    }
 }

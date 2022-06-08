@@ -6,7 +6,13 @@ export interface User {
    username: string
    firstName: string
    lastName: string
+   role: UserRole
    password: string
+}
+
+export enum UserRole {
+   CUSTOMER,
+   ADMIN
 }
 
 export interface Vehicle {
@@ -33,19 +39,69 @@ export enum ReservationStatus {
    DENIED
 }
 
+
 @Injectable({
    providedIn: "root",
 })
 export class InMemoryDataService implements InMemoryDbService {
    createDb() {
       const users: User[] = [
-         { id: 12, firstName: "Mario", lastName: "Rossi", username: "m.rossi", password: "asd" },
-         { id: 13, firstName: "Pietro", lastName: "Smusi", username: "p.smusi", password: "asd" },
-         { id: 14, firstName: "Orazio", lastName: "Grinzosi", username: "o.grinzosi", password: "asd" },
-         { id: 15, firstName: "Luca", lastName: "Micheletto", username: "l.micheletto", password: "asd" },
-         { id: 16, firstName: "Silvio", lastName: "Berlusconi", username: "s.berlusconi", password: "asd" },
-         { id: 17, firstName: "Mario", lastName: "Balotelli", username: "m.balotelli", password: "asd" },
-         { id: 18, firstName: "Benedetta", lastName: "Parodi", username: "b.parodi", password: "asd" },
+         {
+            id: 12,
+            firstName: "Mario",
+            lastName: "Rossi",
+            username: "m.rossi",
+            role: UserRole.CUSTOMER,
+            password: "asd"
+         },
+         {
+            id: 13,
+            firstName: "Pietro",
+            lastName: "Smusi",
+            username: "p.smusi",
+            role: UserRole.CUSTOMER,
+            password: "asd"
+         },
+         {
+            id: 14,
+            firstName: "Orazio",
+            lastName: "Grinzosi",
+            username: "o.grinzosi",
+            role: UserRole.CUSTOMER,
+            password: "asd"
+         },
+         {
+            id: 15,
+            firstName: "Luca",
+            lastName: "Micheletto",
+            username: "l.micheletto",
+            role: UserRole.ADMIN,
+            password: "asd"
+         },
+         {
+            id: 16,
+            firstName: "Silvio",
+            lastName: "Berlusconi",
+            username: "s.berlusconi",
+            role: UserRole.CUSTOMER,
+            password: "asd"
+         },
+         {
+            id: 17,
+            firstName: "Mario",
+            lastName: "Balotelli",
+            username: "m.balotelli",
+            role: UserRole.CUSTOMER,
+            password: "asd"
+         },
+         {
+            id: 18,
+            firstName: "Benedetta",
+            lastName: "Parodi",
+            username: "b.parodi",
+            role: UserRole.CUSTOMER,
+            password: "asd"
+         },
       ];
 
       const vehicles: Vehicle[] = [
