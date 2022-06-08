@@ -9,14 +9,14 @@
                Vehicles
             </a>
          </li>
-         <li>
+         <li *ngIf="currentUser?.role === userRole.CUSTOMER">
             <a class="link"
                routerLink="/reservations"
                routerLinkActive="--active">
                Reservations
             </a>
          </li>
-         <li>
+         <li *ngIf="currentUser?.role === userRole.ADMIN">
             <a class="link"
                routerLink="/admin-dashboard"
                routerLinkActive="--active">
@@ -25,33 +25,37 @@
          </li>
       </ul>
       <ul class="nav-items auth">
-         <li>
-            <a class="link"
-               routerLink="sign-in"
-               routerLinkActive="--active">
-               Sign in
-            </a>
-         </li>
-         <li>
-            <a class="link"
-               routerLink="sign-up"
-               routerLinkActive="--active">
-               Sign up
-            </a>
-         </li>
-         <li>
-            <a class="link"
-               routerLink="profile"
-               routerLinkActive="--active">
-               Profile
-            </a>
-         </li>
-         <li>
-            <a class="link"
-               (click)="signOut()">
-               Sign out
-            </a>
-         </li>
+         <ng-container *ngIf="!currentUser">
+            <li>
+               <a class="link"
+                  routerLink="sign-in"
+                  routerLinkActive="--active">
+                  Sign in
+               </a>
+            </li>
+            <li>
+               <a class="link"
+                  routerLink="sign-up"
+                  routerLinkActive="--active">
+                  Sign up
+               </a>
+            </li>
+         </ng-container>
+         <ng-container *ngIf="currentUser">
+            <li>
+               <a class="link"
+                  routerLink="profile"
+                  routerLinkActive="--active">
+                  Profile
+               </a>
+            </li>
+            <li>
+               <a class="link"
+                  (click)="signOut()">
+                  Sign out
+               </a>
+            </li>
+         </ng-container>
       </ul>
    </nav>
 </div>

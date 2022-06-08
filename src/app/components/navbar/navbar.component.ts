@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { UsersService } from "../../services/users.service";
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
+import { OrderType } from "../table/table.types";
+import { UserRole } from "../../services/data.service";
 
 @Component({
    selector: "app-navbar",
@@ -12,6 +13,14 @@ export class NavbarComponent implements OnInit {
 
    constructor(private authService: AuthService,
                private router: Router) {
+   }
+
+   public get userRole(): typeof UserRole {
+      return UserRole;
+   }
+
+   get currentUser() {
+      return this.authService.currentUser
    }
 
    ngOnInit(): void {

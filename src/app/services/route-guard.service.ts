@@ -20,7 +20,8 @@ export class RouteGuardService implements CanActivate {
       const isAllowed = type === "whitelist"
          ? roles.includes(currentUser?.role)
          : !roles.includes(currentUser?.role)
-      
-      return isAllowed || this.router.navigate([redirectTo])
+
+      //TODO: Aggiungere reindirizzamento in base a se autenticato o no
+      return isAllowed || this.router.navigate([redirectTo || ""])
    }
 }
