@@ -24,4 +24,15 @@
          filter: brightness(1.15);
       }
    }
+
+   &.red {
+      border: 1px solid transparent;
+
+      color: #FFFFFF;
+      background-color: #EB4034;
+
+      &:active {
+         filter: brightness(1.15);
+      }
+   }
 }

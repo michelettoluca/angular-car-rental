@@ -1,1 +1,1 @@
-<app-table [config]="usersTable" [data]="users$ | async" (eventEmitter)="handleEvent($event)"></app-table>
+<app-table [config]="usersTable" [data]="users$ | async" (onEvent)="handleEvent($event)"></app-table>

@@ -1,1 +1,1 @@
-<app-table [config]="vehiclesTable" [data]="vehicles$ | async"></app-table>
+<app-table (onEvent)="handleEvent($event)" [config]="vehiclesTable" [data]="vehicles"></app-table>

@@ -3,7 +3,7 @@ import { User, UserRole } from "../../services/data.service";
 import * as tableConfig from "../../configs/table";
 import { Observable } from "rxjs";
 import { UsersService } from "../../services/users.service";
-import { TableActionType, TableEvent } from "../../components/table/table.types";
+import { TableEvent } from "../../components/table/table.types";
 
 const emptyUser = { firstName: "", lastName: "", username: "", password: "", role: UserRole.CUSTOMER };
 
@@ -24,7 +24,7 @@ export class UsersComponent implements OnInit {
    }
 
    ngOnInit(): void {
-      this.fetchData()
+      this.fetchData();
    }
 
    fetchData() {
@@ -32,13 +32,13 @@ export class UsersComponent implements OnInit {
    }
 
    handleEvent(event: TableEvent) {
-      switch (event.action.type) {
-         case TableActionType.EDIT_ROW: {
+      switch (event.action) {
+         case "EDIT_ROW": {
             this.tmpEditUser = event.payload;
             break;
          }
 
-         case TableActionType.DELETE_ROW: {
+         case "DELETE_ROW": {
             const user: User = event.payload;
             this.usersService.delete(user.id!).subscribe({
                next: () => this.fetchData()
@@ -52,19 +52,19 @@ export class UsersComponent implements OnInit {
       this.usersService.add(this.tmpAddUser).subscribe({
          next: () => {
             this.tmpAddUser = { ...emptyUser };
-            this.fetchData()
+            this.fetchData();
          }
       });
 
 
-      this.fetchData()
+      this.fetchData();
    }
 
    editUser() {
       this.usersService.edit(this.tmpEditUser!).subscribe({
          next: () => {
             this.tmpEditUser = null;
-            this.fetchData()
+            this.fetchData();
          }
       });
    }

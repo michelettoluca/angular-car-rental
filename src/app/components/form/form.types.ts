@@ -1,4 +1,4 @@
-import { Validators } from "@angular/forms";
+import { ValidatorFn } from "@angular/forms";
 
 export enum FormFieldType {
    DROPDOWN,
@@ -12,7 +12,7 @@ interface BaseFormFieldOptions<T> {
    label: string
    name: string
    value?: T
-   validators?: Validators[]
+   validators?: ValidatorFn[]
 }
 
 interface InputFieldOptions<T> extends BaseFormFieldOptions<T> {
@@ -44,14 +44,13 @@ interface RadioGroupOption<T> {
    value: T
 }
 
-
 export class BaseFormField<T> {
    key: string;
    name: string;
    label: string;
    type!: FormFieldType
    value: T | undefined;
-   validators?: Validators[];
+   validators?: ValidatorFn[];
 
    constructor({
                   key,
@@ -115,3 +114,4 @@ export class RadioGroupFormField<T> extends BaseFormField<T> {
    }
 }
 
+export type FormField<T> = DropdownFormField<T> | RadioGroupFormField<T> | CheckboxFormField<T> | InputFormField<T>

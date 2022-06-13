@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { Form, FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormGroup } from "@angular/forms";
 import { FormFieldType } from "./form.types";
 
 @Component({

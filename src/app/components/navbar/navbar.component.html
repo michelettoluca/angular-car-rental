@@ -9,6 +9,13 @@
                Vehicles
             </a>
          </li>
+         <li>
+            <a class="link"
+               routerLink="/users"
+               routerLinkActive="--active">
+               Users
+            </a>
+         </li>
          <li *ngIf="currentUser?.role === userRole.CUSTOMER">
             <a class="link"
                routerLink="/reservations"

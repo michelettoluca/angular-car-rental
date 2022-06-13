@@ -1,12 +1,13 @@
-import { Observable } from "rxjs";
 import { Component, OnInit } from "@angular/core";
 
 import * as tableConfig from "../../configs/table";
 import * as formConfig from "../../configs/form";
-import * as buttonConfig from "../../configs/button";
 
 import { Reservation } from "../../services/data.service";
 import { ReservationsService } from "../../services/reservations.service";
+import { AuthService } from "../../services/auth.service";
+import { VehiclesService } from "../../services/vehicles.service";
+import { TableEvent } from "../../components/table/table.types";
 
 @Component({
    selector: "app-reservations",
@@ -15,25 +16,30 @@ import { ReservationsService } from "../../services/reservations.service";
 })
 export class ReservationsComponent implements OnInit {
    reservationsTable = tableConfig.reservations;
+
    editReservationFrom = formConfig.editReservation;
-   editReservationButton = buttonConfig.editReservation;
+   editReservationFromData?: Reservation;
 
-   reservations$!: Observable<Reservation[]>;
+   reservations?: Reservation[];
 
-   showModal: boolean = false;
+   from?: Date;
+   to?: Date;
 
-   constructor(private reservationsService: ReservationsService) {
+   _showModal: boolean = false;
+
+   constructor(private authService: AuthService,
+               private vehiclesService: VehiclesService,
+               private reservationsService: ReservationsService) {
    }
 
    ngOnInit(): void {
-      this.fetchData()
+      this.reservationsService.findManyByUserId(this.authService.currentUser!.id).subscribe({
+         next: (reservations) => this.reservations = reservations
+      });
    }
 
-   fetchData() {
-      this.reservations$ = this.reservationsService.findAll()
-   }
-
-   toggleShowModal() {
-      this.showModal = !this.showModal;
+   showModal({ payload: reservation }: TableEvent) {
+      this._showModal = true;
+      this.editReservationFromData = reservation;
    }
 }

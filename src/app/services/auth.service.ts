@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { map, Observable, } from "rxjs";
 import { UsersService } from "./users.service";
-import { User, UserRole } from "./data.service";
+import { User } from "./data.service";
 
 @Injectable({
    providedIn: "root"
@@ -20,7 +20,6 @@ export class AuthService {
                passwordMatch = true;
                sessionStorage.setItem("access_token", u.username + ":" + u.id + ":" + u.role)
             }
-
 
             return passwordMatch ? u : undefined
          })

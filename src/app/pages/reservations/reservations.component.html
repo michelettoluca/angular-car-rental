@@ -1,11 +1,11 @@
-<app-table [config]="reservationsTable" [data]="reservations$ | async"></app-table>
-
-<app-button [config]="editReservationButton" (onClick)="toggleShowModal()"></app-button>
+<app-table (onEvent)="showModal($event)"
+           [config]="reservationsTable"
+           [data]="reservations"></app-table>
 
 <div
-   *ngIf="showModal"
+   *ngIf="_showModal"
    class="form">
-   <b>Veicolo</b>
+   <b>Vehicle</b>
    <p>Renault - Clio</p>
    <app-form [config]="editReservationFrom"></app-form>
 </div>

@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { VehiclesService } from "../../services/vehicles.service";
-import { Observable } from "rxjs";
-import { Vehicle } from "../../services/data.service";
 import * as tableConfig from "../../configs/table";
+import { AuthService } from "../../services/auth.service";
+import { TableEvent } from "../../components/table/table.types";
+import { Vehicle } from "../../services/data.service";
 
 @Component({
    selector: "app-vehicles",
@@ -10,14 +11,32 @@ import * as tableConfig from "../../configs/table";
    styleUrls: ["./vehicles.component.scss"]
 })
 export class VehiclesComponent implements OnInit {
-   vehiclesTable = tableConfig.vehicles;
+   vehiclesTable = tableConfig.vehicles({
+      role: this.authService.currentUser?.role
+   });
+   vehicles?: Vehicle[];
 
-   vehicles$!: Observable<Vehicle[]>;
-
-   constructor(private vehiclesService: VehiclesService) {
+   constructor(
+      private vehiclesService: VehiclesService,
+      private authService: AuthService
+   ) {
    }
 
    ngOnInit(): void {
-      this.vehicles$ = this.vehiclesService.findAll();
+      this.vehiclesService.findAll().subscribe({
+         next: (vehicles) => this.vehicles = vehicles
+      });
+   }
+
+   handleEvent({ action, payload }: TableEvent) {
+      switch (action) {
+         case "DELETE_VEHICLE":
+            this.vehiclesService.delete(payload.id).subscribe();
+            break;
+
+         default:
+            console.error("Unhandled action");
+      }
+
    }
 }

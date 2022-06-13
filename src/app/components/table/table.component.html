@@ -1,7 +1,7 @@
 <div *ngIf="config?.filters?.length">
    <h4>Search</h4>
    <form (submit)="addFilter(column.value, value.value); value.value=''">
-      <input type="text" #value/>
+      <input #value type="text"/>
       <select #column>
          <option *ngFor="let filter of config.filters; let i = index" value="{{filter.key}}">
             {{filter.label}}
@@ -13,19 +13,19 @@
    <ul>
       <li *ngFor="let filter of filters">
          <button (click)="removeFilter(filter)">Remove</button>
-         <i>{{filter.column}}:</i><b>{{filter.value}}</b>
+         <i>{{filter.column}}: </i><b>{{filter.value}}</b>
       </li>
    </ul>
 </div>
 
 <ng-container *ngIf="(data
         | tFilter: filters
-        | tSort: order) as r">
+        | tSort: order) as rows">
    <table>
       <tr>
          <th
-            *ngFor="let header of config.headers"
             (click)="toggleOrder(header.key)"
+            *ngFor="let header of config.headers"
          >
             {{ header.label }}
             <ng-container *ngIf="order && order.column === header.key">
@@ -33,16 +33,18 @@
             </ng-container>
          </th>
       </tr>
-      <tr *ngFor="let row of r | tPagination: currentPage : config?.pagination?.itemsPerPage">
+      <tr *ngFor="let row of rows | tPagination: currentPage : config?.pagination?.itemsPerPage">
          <td *ngFor="let header of config.headers">
             {{ header.format ? header.format(row[header.key]) : row[header.key] }}
          </td>
-         <td *ngFor="let action of config.actions">
-            <button *ngIf="action?.row && action.show(row)"
-                    (click)="emit(action, row)">
-               {{action.label}}
-            </button>
-         </td>
+         <ng-container *ngFor="let action of config.actions">
+            <td *ngIf="!action?.show || action?.show(row)">
+               <button
+                  (click)="emit(action.type, row)">
+                  {{action.label}}
+               </button>
+            </td>
+         </ng-container>
       </tr>
    </table>
    <ng-container *ngIf="config.pagination">
@@ -52,7 +54,7 @@
             Prev
          </button>
          |
-         <ng-container *ngFor="let pageIndex of updatePageIndexes(r)">
+         <ng-container *ngFor="let pageIndex of updatePageIndexes(rows)">
             <button (click)="selectPage(pageIndex)"
                     [disabled]="currentPage === pageIndex">
                {{pageIndex + 1}}

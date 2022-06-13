@@ -1,5 +1,6 @@
 import { Validators } from "@angular/forms";
 import { InputFormField } from "../components/form/form.types";
+import { User } from "../services/data.service";
 
 export const signIn = [
    new InputFormField({
@@ -18,17 +19,21 @@ export const signIn = [
       placeholder: "Password",
       controlType: "password",
       validators: [Validators.required]
-   }),
+   })
 ]
 
-export const signUp = [
+
+const save = (arg?: {
+   defaultValue?: User
+}) => [
    new InputFormField({
       key: "firstName",
       name: "firstName",
       label: "First name",
       placeholder: "First name",
       controlType: "text",
-      validators: [Validators.required]
+      validators: [Validators.required],
+      value: arg?.defaultValue?.firstName
    }),
 
    new InputFormField({
@@ -37,7 +42,8 @@ export const signUp = [
       label: "Last name",
       placeholder: "Last name",
       controlType: "text",
-      validators: [Validators.required]
+      validators: [Validators.required],
+      value: arg?.defaultValue?.lastName
    }),
 
    new InputFormField({
@@ -46,7 +52,8 @@ export const signUp = [
       label: "Username",
       placeholder: "Username",
       controlType: "text",
-      validators: [Validators.required]
+      validators: [Validators.required],
+      value: arg?.defaultValue?.username
    }),
 
    new InputFormField({
@@ -55,16 +62,8 @@ export const signUp = [
       label: "Password",
       placeholder: "Password",
       controlType: "password",
-      validators: [Validators.required]
-   }),
-
-   new InputFormField({
-      key: "repeatPassword",
-      name: "repeatPassword",
-      label: "Repeat password",
-      placeholder: "Repeat password",
-      controlType: "password",
-      validators: [Validators.required]
+      validators: [Validators.required],
+      value: arg?.defaultValue?.password
    }),
 ]
 
@@ -86,3 +85,8 @@ export const editReservation = [
    }),
 ]
 
+
+export const signUp = save();
+export const editUser = (arg?: {
+   defaultValue?: User
+}) => save(arg);

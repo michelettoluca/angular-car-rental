@@ -2,7 +2,6 @@ export interface ButtonConfig {
    variant?: ButtonVariant
    text?: string
    icon?: string
-   action: string
 }
 
 export enum ButtonVariant {
@@ -11,7 +10,3 @@ export enum ButtonVariant {
    RED
 }
 
-export interface ButtonEvent {
-   action: string
-   payload?: any
-}

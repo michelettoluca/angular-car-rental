@@ -1,26 +1,19 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError, map, Observable, of, } from "rxjs";
-import { Reservation } from "./data.service";
+import { Reservation, ReservationStatus } from "./data.service";
 
 @Injectable({
    providedIn: "root"
 })
 export class ReservationsService {
-   private reservationsUrl = "api/reservations"
+   private reservationsUrl = "api/reservations";
 
    private httpOptions = {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
    };
 
    constructor(private http: HttpClient) {
-   }
-
-   private handleError<T>(operation = "operation", result?: T) {
-      return (error: any): Observable<T> => {
-         console.error(operation, error);
-         return of(result as T);
-      };
    }
 
    findAll() {
@@ -57,6 +50,24 @@ export class ReservationsService {
       return this.findAll().pipe(
          map((rs) => rs.filter((r) => r.userId === id)),
          catchError(this.handleError<Reservation[]>("findManyByUserId", []))
-      )
+      );
+   }
+
+   findBetweenDates(from: Date, to: Date): Observable<Reservation[]> {
+      return this.findAll().pipe(
+         map((reservations) => {
+            return reservations.filter((reservation) =>
+               reservation.endsAt >= from
+               && reservation.beginsAt <= to
+               && reservation.status !== ReservationStatus.APPROVED);
+         })
+      );
+   }
+
+   private handleError<T>(operation = "operation", result?: T) {
+      return (error: any): Observable<T> => {
+         console.error(operation, error);
+         return of(result as T);
+      };
    }
 }

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { ButtonConfig, ButtonEvent, ButtonVariant } from "./button.types";
+import { ButtonConfig, ButtonVariant } from "./button.types";
 
 const baseClassName = "button"
 
@@ -11,7 +11,7 @@ const baseClassName = "button"
 export class ButtonComponent implements OnInit {
    @Input() config!: ButtonConfig;
 
-   @Output("onClick") handleClick: EventEmitter<ButtonEvent> = new EventEmitter<ButtonEvent>();
+   @Output("onClick") eventEmitter = new EventEmitter();
 
    private _className: string = baseClassName;
 

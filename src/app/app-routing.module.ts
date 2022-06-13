@@ -8,7 +8,6 @@ import { UsersComponent } from "./pages/users/users.component";
 import { SignInComponent } from "./pages/sign-in/sign-in.component";
 import { SignUpComponent } from "./pages/sign-up/sign-up.component";
 import { AdminDashboardComponent } from "./pages/admin-dashboard/admin-dashboard.component";
-import { UserDetailsComponent } from "./pages/admin-dashboard/user-details/user-details.component";
 import { RouteGuardService } from "./services/route-guard.service";
 import { UserRole } from "./services/data.service";
 
@@ -31,12 +30,6 @@ const routes: Routes = [
    },
    {
       path: "admin-dashboard", component: AdminDashboardComponent,
-      children: [
-         {
-            path: ":id",
-            component: UserDetailsComponent
-         }
-      ],
       canActivate: [RouteGuardService],
       data: {
          permissions: {

@@ -43,7 +43,6 @@ export class UsersService {
    }
 
    add(user: User): Observable<User> {
-      console.log(user)
       return this.http.post<User>(this.usersUrl, user, this.httpOptions).pipe(
          catchError(this.handleError<User>("addUser"))
       );

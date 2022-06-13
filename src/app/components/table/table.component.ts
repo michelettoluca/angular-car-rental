@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from "@angular/core";
-import { Order, OrderType, TableAction, TableConfig, TableEvent, TableFilter } from "./table.types";
+import { Order, OrderType, TableConfig, TableEvent, TableFilter } from "./table.types";
 
 @Component({
    selector: "app-table",
@@ -17,7 +17,7 @@ export class TableComponent implements OnInit, OnChanges {
    currentPage: number = 0;
    pageIndexes: number[] = [];
 
-   @Output() eventEmitter = new EventEmitter<TableEvent>();
+   @Output("onEvent") eventEmitter = new EventEmitter<TableEvent>();
 
    public get orderType(): typeof OrderType {
       return OrderType;
@@ -25,7 +25,7 @@ export class TableComponent implements OnInit, OnChanges {
 
    ngOnInit(): void {
       if (this.config.order) {
-         this.order = this.config.order
+         this.order = this.config.order;
       }
 
       this.updateTable();
@@ -45,27 +45,27 @@ export class TableComponent implements OnInit, OnChanges {
       const _value = value.trim();
 
       if (_value && !this.filters.find(f => f.column === column && f.value === value)) {
-         this.filters = [...this.filters, { column, value: _value }]
+         this.filters = [...this.filters, { column, value: _value }];
       }
    }
 
    removeFilter(filter: TableFilter) {
-      this.filters = this.filters.filter(f => !(f.column === filter.column && f.value === filter.value))
+      this.filters = this.filters.filter(f => !(f.column === filter.column && f.value === filter.value));
    }
 
    toggleOrder(column: string) {
       if (this.order?.column !== column) {
-         this.order = { column, type: OrderType.asc }
+         this.order = { column, type: OrderType.asc };
       } else {
          this.order = this.order.type === OrderType.asc
             ? { ...this.order, type: OrderType.desc }
-            : undefined
+            : undefined;
       }
    }
 
    updatePageIndexes(data: any[] = this.data) {
-      const pageCount: number = Math.ceil(data.length / this.config.pagination!.itemsPerPage)
-      this.pageIndexes = [...Array(pageCount).keys()]
+      const pageCount: number = Math.ceil(data.length / this.config.pagination!.itemsPerPage);
+      this.pageIndexes = [...Array(pageCount).keys()];
 
       return this.pageIndexes;
    }
@@ -74,8 +74,8 @@ export class TableComponent implements OnInit, OnChanges {
       this.currentPage = n;
    }
 
-   emit(action: TableAction, payload?: any) {
-      this.eventEmitter.emit({ action, payload })
+   emit(action: string, payload?: any) {
+      this.eventEmitter.emit({ action, payload });
    }
 }
 

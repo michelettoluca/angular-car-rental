@@ -2,25 +2,20 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError, Observable, of } from "rxjs";
 import { Vehicle } from "./data.service";
+import { ReservationsService } from "./reservations.service";
 
 @Injectable({
    providedIn: "root"
 })
 export class VehiclesService {
-   private vehiclesUrl = "api/vehicles"
+   private vehiclesUrl = "api/vehicles";
 
    private httpOptions = {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
    };
 
-   constructor(private http: HttpClient) {
-   }
-
-   private handleError<T>(operation = "operation", result?: T) {
-      return (error: any): Observable<T> => {
-         console.error(operation, error);
-         return of(result as T);
-      };
+   constructor(private http: HttpClient,
+               private reservationsService: ReservationsService) {
    }
 
    findAll() {
@@ -36,7 +31,7 @@ export class VehiclesService {
    }
 
    add(Vehicle: Vehicle): Observable<Vehicle> {
-      console.log(Vehicle)
+      console.log(Vehicle);
       return this.http.post<Vehicle>(this.vehiclesUrl, Vehicle, this.httpOptions).pipe(
          catchError(this.handleError<Vehicle>("addVehicle"))
       );
@@ -52,5 +47,12 @@ export class VehiclesService {
       return this.http.delete<Vehicle>(`${this.vehiclesUrl}/${id}`, this.httpOptions).pipe(
          catchError(this.handleError<Vehicle>("deleteVehicle"))
       );
+   }
+
+   private handleError<T>(operation = "operation", result?: T) {
+      return (error: any): Observable<T> => {
+         console.error(operation, error);
+         return of(result as T);
+      };
    }
 }

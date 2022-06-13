@@ -1,7 +1,26 @@
 <ul>
-   <div *ngFor="let user of users$ | async" routerLink="{{user.id}}">
-      {{user.firstName}} {{user.lastName}} | {{user.id}}
+   <div (click)="selectUser(user)"
+        *ngFor="let user of users">
+      {{user.firstName}} {{user.lastName}}
    </div>
 </ul>
 
-<router-outlet></router-outlet>
+<div *ngIf="user">
+   <hr>
+   <h1>{{user.firstName}} {{user.lastName}}</h1>
+   <app-button (onClick)="toggleEditUserForm()"
+               [config]="editUserButton">
+
+   </app-button>
+   <div *ngIf="editUserForm"
+        class="form">
+      <app-form (onSubmit)="handleSubmit($event)"
+                [config]="editUserForm">
+      </app-form>
+   </div>
+
+   <app-table (onEvent)="editReservationStatus($event)"
+              [config]="manageReservationsTable"
+              [data]="reservations"></app-table>
+</div>
+

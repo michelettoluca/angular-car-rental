@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
 import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
@@ -21,8 +21,7 @@ import { SignUpComponent } from "./pages/sign-up/sign-up.component";
 import { UsersComponent } from "./pages/users/users.component";
 
 import { InMemoryDataService } from "./services/data.service";
-import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
-import { UserDetailsComponent } from './pages/admin-dashboard/user-details/user-details.component';
+import { AdminDashboardComponent } from "./pages/admin-dashboard/admin-dashboard.component";
 
 
 @NgModule({
@@ -38,8 +37,7 @@ import { UserDetailsComponent } from './pages/admin-dashboard/user-details/user-
       FormEntries,
       SignInComponent,
       SignUpComponent,
-      AdminDashboardComponent,
-      UserDetailsComponent,
+      AdminDashboardComponent
    ],
    imports: [
       HttpClientModule,
@@ -47,7 +45,8 @@ import { UserDetailsComponent } from './pages/admin-dashboard/user-details/user-
       BrowserModule,
       AppRoutingModule,
       TableModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      FormsModule
    ],
    providers: [],
    bootstrap: [AppComponent]

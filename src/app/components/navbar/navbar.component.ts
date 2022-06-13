@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
-import { OrderType } from "../table/table.types";
 import { UserRole } from "../../services/data.service";
 
 @Component({
@@ -28,6 +27,6 @@ export class NavbarComponent implements OnInit {
 
    signOut() {
       this.authService.signOut();
-      this.router.navigate(["/"])
+      this.router.navigate(["/"]).then(r => console.log(r))
    }
 }
