@@ -3,11 +3,11 @@ import { Component, OnInit } from "@angular/core";
 import * as tableConfig from "../../configs/table";
 import * as formConfig from "../../configs/form";
 
-import { Reservation } from "../../services/data.service";
 import { ReservationsService } from "../../services/reservations.service";
 import { AuthService } from "../../services/auth.service";
 import { VehiclesService } from "../../services/vehicles.service";
 import { TableEvent } from "../../components/table/table.types";
+import { Reservation } from "../../types";
 
 @Component({
    selector: "app-reservations",

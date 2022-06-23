@@ -3,7 +3,7 @@ import { VehiclesService } from "../../services/vehicles.service";
 import * as tableConfig from "../../configs/table";
 import { AuthService } from "../../services/auth.service";
 import { TableEvent } from "../../components/table/table.types";
-import { Vehicle } from "../../services/data.service";
+import { Vehicle } from "../../types";
 
 @Component({
    selector: "app-vehicles",
@@ -12,8 +12,9 @@ import { Vehicle } from "../../services/data.service";
 })
 export class VehiclesComponent implements OnInit {
    vehiclesTable = tableConfig.vehicles({
-      role: this.authService.currentUser?.role
+      roles: this.authService.currentUser?.roles
    });
+   
    vehicles?: Vehicle[];
 
    constructor(

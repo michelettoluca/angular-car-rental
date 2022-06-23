@@ -1,44 +1,45 @@
 import { Injectable } from "@angular/core";
-import { map, Observable, } from "rxjs";
-import { UsersService } from "./users.service";
-import { User } from "./data.service";
+import { Observable, tap, } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { environment } from "../environments/environment";
+import { JwtHelperService } from "@auth0/angular-jwt";
+import { LoginRequest } from "../types/response/LoginRequest";
+import { AccessTokenResponse, DecodedAccessToken } from "../types";
 
 @Injectable({
    providedIn: "root"
 })
 export class AuthService {
 
-   constructor(private usersService: UsersService) {
+   authBaseUrl: string;
+   jwtHelper: JwtHelperService;
+
+   constructor(private http: HttpClient) {
+      this.authBaseUrl = environment.API_BASE_URL + "/auth/login";
+      this.jwtHelper = new JwtHelperService();
    }
 
-   signIn({ username, password }: { username: string, password: string }): Observable<User | undefined> {
-      return this.usersService.findOneByUsername(username).pipe(
-         map((u) => {
+   get accessToken(): string | null {
+      return sessionStorage.getItem("access_token");
+   }
 
-            let passwordMatch = false;
-            if (u?.password === password) {
-               passwordMatch = true;
-               sessionStorage.setItem("access_token", u.username + ":" + u.id + ":" + u.role)
-            }
+   get currentUser(): DecodedAccessToken | null {
+      if (!this.accessToken) return null;
 
-            return passwordMatch ? u : undefined
+      return this.jwtHelper.decodeToken(this.accessToken) as DecodedAccessToken;
+
+      // return { id: Number(id), roles: roles };
+   }
+
+   login(credentials: LoginRequest): Observable<AccessTokenResponse> {
+      return this.http.post<AccessTokenResponse>(this.authBaseUrl, credentials).pipe(
+         tap(({ access_token }) => {
+            sessionStorage.setItem("access_token", access_token);
          })
       );
    }
 
-   signOut() {
-      sessionStorage.removeItem("access_token")
-   }
-
-   get accessToken() {
-      return sessionStorage.getItem("access_token")
-   }
-
-   get currentUser() {
-      if (!this.accessToken) return undefined;
-
-      const [username, id, role] = this.accessToken.split(":")
-
-      return { username, id: Number(id), role: Number(role) }
+   logout(): void {
+      sessionStorage.removeItem("access_token");
    }
 }

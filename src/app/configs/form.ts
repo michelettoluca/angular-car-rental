@@ -1,6 +1,6 @@
 import { Validators } from "@angular/forms";
 import { InputFormField } from "../components/form/form.types";
-import { User } from "../services/data.service";
+import { User } from "../types";
 
 export const signIn = [
    new InputFormField({
@@ -20,7 +20,7 @@ export const signIn = [
       controlType: "password",
       validators: [Validators.required]
    })
-]
+];
 
 
 const save = (arg?: {
@@ -65,7 +65,7 @@ const save = (arg?: {
       validators: [Validators.required],
       value: arg?.defaultValue?.password
    }),
-]
+];
 
 export const editReservation = [
    new InputFormField({
@@ -83,10 +83,10 @@ export const editReservation = [
       controlType: "date",
       validators: [Validators.required]
    }),
-]
-
+];
 
 export const signUp = save();
+
 export const editUser = (arg?: {
    defaultValue?: User
 }) => save(arg);

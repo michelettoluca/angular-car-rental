@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
-import { UserRole } from "../../services/data.service";
+import { UserRole } from "../../types";
 
 @Component({
    selector: "app-navbar",
@@ -14,19 +14,19 @@ export class NavbarComponent implements OnInit {
                private router: Router) {
    }
 
-   public get userRole(): typeof UserRole {
+   public get UserRole(): typeof UserRole {
       return UserRole;
    }
 
    get currentUser() {
-      return this.authService.currentUser
+      return this.authService.currentUser;
    }
 
    ngOnInit(): void {
    }
 
    signOut() {
-      this.authService.signOut();
-      this.router.navigate(["/"]).then(r => console.log(r))
+      this.authService.logout();
+      this.router.navigate(["/"]).then(r => console.log(r));
    }
 }

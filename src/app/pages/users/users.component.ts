@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { User, UserRole } from "../../services/data.service";
 import * as tableConfig from "../../configs/table";
 import { Observable } from "rxjs";
 import { UsersService } from "../../services/users.service";
 import { TableEvent } from "../../components/table/table.types";
+import { User, UserRole } from "../../types";
 
-const emptyUser = { firstName: "", lastName: "", username: "", password: "", role: UserRole.CUSTOMER };
+const emptyUser = { firstName: "", lastName: "", username: "", password: "", role: UserRole.ROLE_CUSTOMER };
 
 @Component({
    selector: "app-users",

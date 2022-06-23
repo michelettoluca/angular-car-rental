@@ -2,10 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import * as formConfig from "../../configs/form";
 import { FormGroup } from "@angular/forms";
 import { UsersService } from "../../services/users.service";
-import { User, UserRole } from "../../services/data.service";
 import { Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
 import { switchMap } from "rxjs";
+import { User, UserRole } from "../../types";
 
 @Component({
    selector: "app-sign-up",
@@ -30,11 +30,11 @@ export class SignUpComponent implements OnInit {
          lastName: form.value.lastName,
          username: form.value.username,
          password: form.value.password,
-         role: UserRole.CUSTOMER,
+         role: UserRole.ROLE_CUSTOMER,
       };
 
       this.usersService.add(user).pipe(
-         switchMap(() => this.authService.signIn(user)),
+         switchMap(() => this.authService.login(user)),
       ).subscribe({
          next: () => this.router.navigate(["profile"])
       });

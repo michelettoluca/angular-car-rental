@@ -16,14 +16,14 @@
                Users
             </a>
          </li>
-         <li *ngIf="currentUser?.role === userRole.CUSTOMER">
+         <li *ngIf="currentUser?.roles?.includes(UserRole.ROLE_CUSTOMER)">
             <a class="link"
                routerLink="/reservations"
                routerLinkActive="--active">
                Reservations
             </a>
          </li>
-         <li *ngIf="currentUser?.role === userRole.ADMIN">
+         <li *ngIf="currentUser?.roles?.includes(UserRole.ROLE_ADMIN)">
             <a class="link"
                routerLink="/admin-dashboard"
                routerLinkActive="--active">
@@ -57,8 +57,8 @@
                </a>
             </li>
             <li>
-               <a class="link"
-                  (click)="signOut()">
+               <a (click)="signOut()"
+                  class="link">
                   Sign out
                </a>
             </li>

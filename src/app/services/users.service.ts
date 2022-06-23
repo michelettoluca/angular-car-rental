@@ -1,20 +1,54 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { catchError, map, Observable, of } from "rxjs";
-import { User } from "./data.service";
+import { HttpClient } from "@angular/common/http";
+import { catchError, Observable, of } from "rxjs";
+import { User } from "../types";
+import { environment } from "../environments/environment";
 
 
 @Injectable({
    providedIn: "root"
 })
 export class UsersService {
-   private usersUrl = "api/users"
-
-   private httpOptions = {
-      headers: new HttpHeaders({ "Content-Type": "application/json" })
-   };
+   private usersBaseUrl: string;
 
    constructor(private http: HttpClient) {
+      this.usersBaseUrl = environment.API_BASE_URL + "/users";
+   }
+
+   findAll() {
+      return this.http.get<User[]>(this.usersBaseUrl).pipe(
+         catchError(this.handleError<User[]>("getUsers", []))
+      );
+   }
+
+   findOneById(id: number): Observable<User> {
+      return this.http.get<User>(`${this.usersBaseUrl}/by/id/${id}`).pipe(
+         catchError(this.handleError<User>(`getUser id=${id}`))
+      );
+   }
+
+   findOneByUsername(username: string): Observable<User> {
+      return this.http.get<User>(`${this.usersBaseUrl}/by/username/${username}`).pipe(
+         catchError(this.handleError<User>(`getUser id=${username}`))
+      );
+   }
+
+   add(user: User): Observable<User> {
+      return this.http.post<User>(this.usersBaseUrl, user).pipe(
+         catchError(this.handleError<User>("addUser"))
+      );
+   }
+
+   edit(user: User): Observable<any> {
+      return this.http.put(`${this.usersBaseUrl}/by/id/${user.id}`, user).pipe(
+         catchError(this.handleError<any>("updateUser"))
+      );
+   }
+
+   delete(id: number): Observable<User> {
+      return this.http.delete<User>(`${this.usersBaseUrl}/by/id/${id}`).pipe(
+         catchError(this.handleError<User>("deleteUser"))
+      );
    }
 
    private handleError<T>(operation = "operation", result?: T) {
@@ -22,41 +56,5 @@ export class UsersService {
          console.error(operation, error);
          return of(result as T);
       };
-   }
-
-   findAll() {
-      return this.http.get<User[]>(this.usersUrl).pipe(
-         catchError(this.handleError<User[]>("getUsers", []))
-      );
-   }
-
-   findOneById(id: number): Observable<User> {
-      return this.http.get<User>(`${this.usersUrl}/${id}`).pipe(
-         catchError(this.handleError<User>(`getUser id=${id}`))
-      );
-   }
-
-   findOneByUsername(username: string): Observable<User | undefined> {
-      return this.findAll().pipe(
-         map((users) => users.find((user) => user.username === username)),
-      )
-   }
-
-   add(user: User): Observable<User> {
-      return this.http.post<User>(this.usersUrl, user, this.httpOptions).pipe(
-         catchError(this.handleError<User>("addUser"))
-      );
-   }
-
-   edit(user: User): Observable<any> {
-      return this.http.put(this.usersUrl, user, this.httpOptions).pipe(
-         catchError(this.handleError<any>("updateUser"))
-      );
-   }
-
-   delete(id: number): Observable<User> {
-      return this.http.delete<User>(`${this.usersUrl}/${id}`, this.httpOptions).pipe(
-         catchError(this.handleError<User>("deleteUser"))
-      );
    }
 }

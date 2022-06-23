@@ -1,8 +1,7 @@
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
-import { HttpClientModule } from "@angular/common/http";
-import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -20,8 +19,8 @@ import { SignInComponent } from "./pages/sign-in/sign-in.component";
 import { SignUpComponent } from "./pages/sign-up/sign-up.component";
 import { UsersComponent } from "./pages/users/users.component";
 
-import { InMemoryDataService } from "./services/data.service";
 import { AdminDashboardComponent } from "./pages/admin-dashboard/admin-dashboard.component";
+import { JwtInterceptor } from "./interceptor/jwt.interceptor";
 
 
 @NgModule({
@@ -41,14 +40,15 @@ import { AdminDashboardComponent } from "./pages/admin-dashboard/admin-dashboard
    ],
    imports: [
       HttpClientModule,
-      HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false }),
       BrowserModule,
       AppRoutingModule,
       TableModule,
       ReactiveFormsModule,
       FormsModule
    ],
-   providers: [],
+   providers: [
+      { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+   ],
    bootstrap: [AppComponent]
 })
 export class AppModule {

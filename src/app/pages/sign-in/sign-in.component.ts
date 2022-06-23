@@ -21,14 +21,14 @@ export class SignInComponent implements OnInit {
    }
 
    log(arg: any) {
-      console.log(arg)
+      console.log(arg);
    }
 
    handleSubmit(form: FormGroup) {
-      this.authService.signIn(form.value).subscribe({
+      this.authService.login(form.value).subscribe({
          next: () => {
-            this.router.navigate(["profile"])
+            this.router.navigate(["profile"]);
          }
-      })
+      });
    }
 }

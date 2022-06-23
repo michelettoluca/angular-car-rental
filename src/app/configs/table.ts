@@ -1,5 +1,5 @@
 import { TableConfig } from "../components/table/table.types";
-import { ReservationStatus, UserRole } from "../services/data.service";
+import { ReservationStatus, UserRole } from "../types";
 
 export const users: TableConfig = {
    headers: [
@@ -15,7 +15,7 @@ export const users: TableConfig = {
    ]
 };
 
-export const vehicles = (options: { role?: UserRole }): TableConfig => ({
+export const vehicles = (options: { roles?: UserRole[] }): TableConfig => ({
    headers: [
       { key: "brand", label: "Brand" },
       { key: "model", label: "Model" },
@@ -30,12 +30,12 @@ export const vehicles = (options: { role?: UserRole }): TableConfig => ({
       {
          type: "BOOK_RESERVATION",
          label: "Reserve",
-         show: () => options.role === UserRole.CUSTOMER
+         show: () => !!options.roles?.includes(UserRole.ROLE_CUSTOMER)
       },
       {
          type: "DELETE_VEHICLE",
          label: "Delete",
-         show: () => options.role === UserRole.ADMIN
+         show: () => !!options.roles?.includes(UserRole.ROLE_ADMIN)
       }
    ]
 });

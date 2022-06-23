@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { UsersService } from "../../services/users.service";
-import { Reservation, ReservationStatus, User } from "../../services/data.service";
 import { ReservationsService } from "../../services/reservations.service";
 import { ButtonConfig } from "../../components/button/button.types";
 
@@ -10,6 +9,7 @@ import * as tableConfig from "../../configs/table";
 import { FormField } from "../../components/form/form.types";
 import { FormGroup } from "@angular/forms";
 import { TableConfig, TableEvent } from "../../components/table/table.types";
+import { Reservation, ReservationStatus, User } from "../../types";
 
 @Component({
    selector: "app-admin-dashboard",

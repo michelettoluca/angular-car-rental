@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
 import { Observable } from "rxjs";
 import { AuthService } from "./auth.service";
+import { UserRole } from "../types";
 
 @Injectable({
    providedIn: "root"
@@ -18,10 +19,10 @@ export class RouteGuardService implements CanActivate {
       const currentUser = this.authService.currentUser;
 
       const isAllowed = type === "whitelist"
-         ? roles.includes(currentUser?.role)
-         : !roles.includes(currentUser?.role)
+         ? roles.some((role: UserRole) => currentUser?.roles.includes(role))
+         : !roles.some((role: UserRole) => currentUser?.roles.includes(role));
 
       //TODO: Aggiungere reindirizzamento in base a se autenticato o no
-      return isAllowed || this.router.navigate([redirectTo || ""])
+      return isAllowed || this.router.navigate([redirectTo || ""]);
    }
 }
