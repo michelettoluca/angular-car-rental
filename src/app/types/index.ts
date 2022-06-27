@@ -5,3 +5,4 @@ export { Vehicle } from "./Vehicle";
 export { Reservation } from "./Reservation";
 export { ReservationStatus } from "./ReservationStatus";
 export { DecodedAccessToken } from "./DecodedAccessToken";
+export { Event } from "./Event";

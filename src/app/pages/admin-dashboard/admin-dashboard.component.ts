@@ -7,9 +7,9 @@ import * as buttonConfig from "../../configs/button";
 import * as formConfig from "../../configs/form";
 import * as tableConfig from "../../configs/table";
 import { FormField } from "../../components/form/form.types";
-import { FormGroup } from "@angular/forms";
 import { TableConfig, TableEvent } from "../../components/table/table.types";
 import { Reservation, ReservationStatus, User } from "../../types";
+import { FormGroup } from "@angular/forms";
 
 @Component({
    selector: "app-admin-dashboard",
@@ -24,7 +24,7 @@ export class AdminDashboardComponent implements OnInit {
 
    editUserButton: ButtonConfig = buttonConfig.editUser;
    approveReservationButton: ButtonConfig = buttonConfig.approveReservation;
-   denyReservationButton: ButtonConfig = buttonConfig.denyReservaiton;
+   denyReservationButton: ButtonConfig = buttonConfig.denyReservation;
    manageReservationsTable: TableConfig = tableConfig.manageUserReservations;
 
    editUserForm?: FormField<any>[];

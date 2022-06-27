@@ -10,15 +10,15 @@ import { FormFieldType } from "./form.types";
 export class FormComponent implements OnInit {
    @Input() config!: any[];
 
-   @Output("onSubmit") submitEvent = new EventEmitter<FormGroup>()
+   @Output("onSubmit") submitEvent = new EventEmitter<FormGroup>();
 
    formGroup: FormGroup = new FormGroup({});
 
-   public get formFieldType(): typeof FormFieldType {
-      return FormFieldType;
+   constructor() {
    }
 
-   constructor() {
+   public get formFieldType(): typeof FormFieldType {
+      return FormFieldType;
    }
 
    ngOnInit(): void {
@@ -31,6 +31,6 @@ export class FormComponent implements OnInit {
    }
 
    handleSubmit() {
-      this.submitEvent.emit(this.formGroup)
+      this.submitEvent.emit(this.formGroup);
    }
 }

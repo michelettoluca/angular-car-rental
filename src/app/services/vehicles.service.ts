@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { catchError, Observable, of } from "rxjs";
-import { ReservationsService } from "./reservations.service";
 import { Vehicle } from "../types";
 import { environment } from "../environments/environment";
 
@@ -11,14 +10,19 @@ import { environment } from "../environments/environment";
 export class VehiclesService {
    private vehiclesBaseUrl = "api/vehicles";
 
-   constructor(private http: HttpClient,
-               private reservationsService: ReservationsService) {
+   constructor(private http: HttpClient) {
       this.vehiclesBaseUrl = environment.API_BASE_URL + "/vehicles";
    }
 
-   findAll() {
+   findAll(): Observable<Vehicle[]> {
       return this.http.get<Vehicle[]>(this.vehiclesBaseUrl).pipe(
          catchError(this.handleError<Vehicle[]>("getVehicles", []))
+      );
+   }
+
+   findAvailable(from: Date, to: Date): Observable<Vehicle[]> {
+      return this.http.get<Vehicle[]>(`${this.vehiclesBaseUrl}/available?from=${from}&to=${to}`).pipe(
+         catchError(this.handleError<Vehicle[]>(`getAvailableVehicles`))
       );
    }
 
@@ -28,21 +32,20 @@ export class VehiclesService {
       );
    }
 
-   add(Vehicle: Vehicle): Observable<Vehicle> {
-      console.log(Vehicle);
-      return this.http.post<Vehicle>(this.vehiclesBaseUrl, Vehicle).pipe(
+   add(vehicle: Vehicle): Observable<Vehicle> {
+      return this.http.post<Vehicle>(this.vehiclesBaseUrl, vehicle).pipe(
          catchError(this.handleError<Vehicle>("addVehicle"))
       );
    }
 
-   edit(Vehicle: Vehicle): Observable<any> {
-      return this.http.put(this.vehiclesBaseUrl, Vehicle).pipe(
-         catchError(this.handleError<any>("updateVehicle"))
+   edit(vehicle: Vehicle): Observable<Vehicle> {
+      return this.http.put<Vehicle>(`${this.vehiclesBaseUrl}/by/id/${vehicle.id}`, vehicle).pipe(
+         catchError(this.handleError<Vehicle>("updateVehicle"))
       );
    }
 
    delete(id: number): Observable<Vehicle> {
-      return this.http.delete<Vehicle>(`${this.vehiclesBaseUrl}/by/id${id}`).pipe(
+      return this.http.delete<Vehicle>(`${this.vehiclesBaseUrl}/by/id/${id}`).pipe(
          catchError(this.handleError<Vehicle>("deleteVehicle"))
       );
    }

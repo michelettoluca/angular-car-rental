@@ -1,6 +1,6 @@
 import { Validators } from "@angular/forms";
 import { InputFormField } from "../components/form/form.types";
-import { User } from "../types";
+import { Reservation, User, Vehicle } from "../types";
 
 export const signIn = [
    new InputFormField({
@@ -23,7 +23,7 @@ export const signIn = [
 ];
 
 
-const save = (arg?: {
+const saveUser = (arg?: {
    defaultValue?: User
 }) => [
    new InputFormField({
@@ -67,26 +67,76 @@ const save = (arg?: {
    }),
 ];
 
-export const editReservation = [
+export const editReservation = (reservation: Reservation) => [
    new InputFormField({
       key: "beginsAt",
       name: "beginsAt",
       label: "From",
       controlType: "date",
-      validators: [Validators.required]
+      validators: [Validators.required],
+      value: reservation.beginsAt
    }),
-
    new InputFormField({
-      key: "lastName",
-      name: "lastName",
-      label: "Last name",
+      key: "endsAt",
+      name: "endsAt",
+      label: "To",
       controlType: "date",
-      validators: [Validators.required]
+      validators: [Validators.required],
+      value: reservation.endsAt
    }),
 ];
 
-export const signUp = save();
+export const signUp = saveUser();
 
 export const editUser = (arg?: {
    defaultValue?: User
-}) => save(arg);
+}) => saveUser(arg);
+
+
+export const saveVehicle = (arg?: {
+   defaultValue?: Vehicle
+}) => [
+   new InputFormField({
+      key: "brand",
+      name: "brand",
+      label: "Brand",
+      placeholder: "Brand",
+      controlType: "text",
+      validators: [Validators.required],
+      value: arg?.defaultValue?.brand
+   }),
+   new InputFormField({
+      key: "model",
+      name: "model",
+      label: "Model",
+      placeholder: "Model",
+      controlType: "text",
+      validators: [Validators.required],
+      value: arg?.defaultValue?.model
+   }),
+   new InputFormField({
+      key: "plateNumber",
+      name: "plateNumber",
+      label: "Plate number",
+      placeholder: "Plate number",
+      controlType: "text",
+      validators: [Validators.required],
+      value: arg?.defaultValue?.plateNumber
+   }),
+   new InputFormField({
+      key: "type",
+      name: "type",
+      label: "Type",
+      placeholder: "Type",
+      controlType: "text",
+      validators: [Validators.required],
+      value: arg?.defaultValue?.type
+   }),
+];
+
+
+export const addVehicle = saveVehicle();
+
+export const editVehicle = (arg?: {
+   defaultValue?: Vehicle
+}) => saveVehicle(arg);

@@ -8,47 +8,47 @@ export enum FormFieldType {
 }
 
 interface BaseFormFieldOptions<T> {
-   key: string
-   label: string
-   name: string
-   value?: T
-   validators?: ValidatorFn[]
+   key: string;
+   label: string;
+   name: string;
+   value?: T;
+   validators?: ValidatorFn[];
 }
 
 interface InputFieldOptions<T> extends BaseFormFieldOptions<T> {
-   controlType: ControlType
-   placeholder?: string
+   controlType: ControlType;
+   placeholder?: string;
 }
 
-type ControlType = "text" | "date" | "password" | "number"
+type ControlType = "text" | "date" | "password" | "number" | "hidden"
 
 interface DropdownFieldOptions<T> extends BaseFormFieldOptions<T> {
-   options: DropdownOption<T>[]
+   options: DropdownOption<T>[];
 }
 
 interface DropdownOption<T> {
-   label: string
-   value: T
+   label: string;
+   value: T;
 }
 
 interface CheckboxOptions<T> extends BaseFormFieldOptions<T> {
-   checked?: boolean
+   checked?: boolean;
 }
 
 interface RadioGroupOptions<T> extends BaseFormFieldOptions<T> {
-   options: RadioGroupOption<T>[]
+   options: RadioGroupOption<T>[];
 }
 
 interface RadioGroupOption<T> {
-   label: string
-   value: T
+   label: string;
+   value: T;
 }
 
 export class BaseFormField<T> {
    key: string;
    name: string;
    label: string;
-   type!: FormFieldType
+   type!: FormFieldType;
    value: T | undefined;
    validators?: ValidatorFn[];
 
@@ -68,7 +68,7 @@ export class BaseFormField<T> {
 }
 
 export class DropdownFormField<T> extends BaseFormField<T> {
-   options: DropdownOption<T>[]
+   options: DropdownOption<T>[];
 
    constructor({ options, ...rest }: DropdownFieldOptions<T>) {
       super(rest);
@@ -79,8 +79,8 @@ export class DropdownFormField<T> extends BaseFormField<T> {
 }
 
 export class InputFormField<T> extends BaseFormField<T> {
-   controlType: ControlType
-   placeholder: string
+   controlType: ControlType;
+   placeholder: string;
 
    constructor({ controlType, placeholder, ...rest }: InputFieldOptions<T>) {
       super(rest);
@@ -103,7 +103,7 @@ export class CheckboxFormField<T> extends BaseFormField<T> {
 }
 
 export class RadioGroupFormField<T> extends BaseFormField<T> {
-   options: RadioGroupOption<T>[]
+   options: RadioGroupOption<T>[];
 
    constructor({ value, options, ...rest }: RadioGroupOptions<T>) {
       super(rest);

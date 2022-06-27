@@ -1,6 +1,6 @@
 <form
-   [formGroup]="formGroup"
    (submit)="handleSubmit()"
+   [formGroup]="formGroup"
 >
    <div
       *ngFor="let formField of config"
@@ -24,11 +24,11 @@
                *ngFor="let option of formField.options; let i = index"
                class="radio-option">
                <input
-                  type="radio"
-                  [name]="formField.key"
+                  [formControlName]="formField.key"
                   [id]="option.value"
+                  [name]="formField.key"
                   [value]="option.value"
-                  [formControlName]="formField.key"/>
+                  type="radio"/>
 
                <label [for]="option.value">{{option.label}}</label>
             </div>
@@ -38,28 +38,29 @@
             *ngSwitchCase="formFieldType.CHECKBOX"
             class="checkbox">
             <input
-               type="checkbox"
+               [checked]="formField.selected"
+               [formControlName]="formField.key"
                [id]="formField.key"
                [value]="formField.value"
-               [checked]="formField.selected"
-               [formControlName]="formField.key"/>
+               type="checkbox"/>
 
             <label [for]="formField.key">{{formField.label}}</label>
          </div>
 
          <input
             *ngSwitchCase="formFieldType.INPUT"
-            class="input"
-            [type]="formField.controlType"
+            [formControlName]="formField.key"
             [placeholder]="formField.placeholder"
-            [formControlName]="formField.key"/>
+            [type]="formField.controlType"
+            class="input"/>
 
       </ng-container>
-      <span *ngIf="formGroup.get(formField.key)?.touched && formGroup.get(formField.key)?.errors">
-         {{formGroup.get(formField.key)?.errors | json}}
+      <span *ngIf="formGroup.get(formField.key)?.touched && formGroup.get(formField.key)?.errors"
+            class="error">
+         Invalid field
       </span>
    </div>
    <input
-      type="submit"
-      [disabled]="formGroup.invalid"/>
+      [disabled]="formGroup.invalid"
+      type="submit"/>
 </form>

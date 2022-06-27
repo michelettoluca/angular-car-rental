@@ -37,4 +37,13 @@ select {
    border-radius: .5rem;
 
    max-width: 350px;
+
+   .error {
+      padding: .5rem .75rem;
+
+      color: white;
+      background-color: red;
+
+      border-radius: .5rem;
+   }
 }

@@ -1,1 +1,12 @@
-<app-table (onEvent)="handleEvent($event)" [config]="vehiclesTable" [data]="vehicles"></app-table>
+<app-form (onSubmit)="handleAddFormSubmit($event)"
+          [config]="addVehicleFrom">
+</app-form>
+
+<app-table (onEvent)="handleTableEvent($event)"
+           [config]="vehiclesTable"
+           [data]="vehicles">
+</app-table>
+<app-form (onSubmit)="handleEditFormSubmit($event)"
+          *ngIf="editVehicleForm && selectedVehicle"
+          [config]="editVehicleForm">
+</app-form>

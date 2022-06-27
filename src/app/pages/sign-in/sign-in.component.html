@@ -1,3 +1,4 @@
 <div class="form">
-   <app-form [config]="signInConfig" (onSubmit)="handleSubmit($event)"></app-form>
+   <div *ngIf="error" class="error">{{error.message}}</div>
+   <app-form (onSubmit)="handleSubmit($event)" [config]="signInConfig"></app-form>
 </div>

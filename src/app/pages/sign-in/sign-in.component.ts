@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import * as formConfig from "../../configs/form";
 import { AuthService } from "../../services/auth.service";
-import { FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
+import { FormGroup } from "@angular/forms";
+import { ErrorResponse } from "../../types";
 
 @Component({
    selector: "app-sign-in",
@@ -11,6 +12,7 @@ import { Router } from "@angular/router";
 })
 export class SignInComponent implements OnInit {
 
+   error?: ErrorResponse;
    signInConfig = formConfig.signIn;
 
    constructor(private router: Router,
@@ -20,14 +22,15 @@ export class SignInComponent implements OnInit {
    ngOnInit(): void {
    }
 
-   log(arg: any) {
-      console.log(arg);
-   }
 
    handleSubmit(form: FormGroup) {
       this.authService.login(form.value).subscribe({
          next: () => {
             this.router.navigate(["profile"]);
+            this.error = undefined;
+         },
+         error: ({ error }) => {
+            this.error = error;
          }
       });
    }

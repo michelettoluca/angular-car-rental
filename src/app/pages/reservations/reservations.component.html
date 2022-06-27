@@ -1,11 +1,30 @@
-<app-table (onEvent)="showModal($event)"
+<form (submit)="findAvailableVehicles(findAvailableVehiclesForm.value.from, findAvailableVehiclesForm.value.to)"
+      [formGroup]="findAvailableVehiclesForm">
+   <input formControlName="from" type="date"/>
+   <input formControlName="to" type="date"/>
+   <input type="submit"/>
+</form>
+
+<app-table (onEvent)="bookReservation($event)"
+           [config]="availableVehiclesTable"
+           [data]="availableVehicles">
+</app-table>
+
+<app-table (onEvent)="selectReservation($event)"
            [config]="reservationsTable"
-           [data]="reservations"></app-table>
+           [data]="reservations">
+</app-table>
 
 <div
-   *ngIf="_showModal"
+   *ngIf="editReservationFrom && selectedReservation"
    class="form">
+         <span *ngIf="editReservationError"
+               class="error">
+         {{editReservationError.message}}
+      </span>
    <b>Vehicle</b>
-   <p>Renault - Clio</p>
-   <app-form [config]="editReservationFrom"></app-form>
+   <p>{{selectedReservation.vehicle.brand}} - {{selectedReservation.vehicle.model}}</p>
+   <b>Plate number</b>
+   <p>{{selectedReservation.vehicle.plateNumber}}</p>
+   <app-form (onSubmit)="editReservation($event)" [config]="editReservationFrom"></app-form>
 </div>

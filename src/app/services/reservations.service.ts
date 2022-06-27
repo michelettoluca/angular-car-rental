@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { catchError, Observable, of, } from "rxjs";
 import { environment } from "../environments/environment";
 import { Reservation } from "../types";
+import { ReservationSaveRequest } from "../types/request/ReservationSaveRequest";
 
 @Injectable({
    providedIn: "root"
@@ -14,7 +15,7 @@ export class ReservationsService {
       this.reservationsBaseUrl = environment.API_BASE_URL + "/reservations";
    }
 
-   findAll() {
+   findAll(): Observable<Reservation[]> {
       return this.http.get<Reservation[]>(this.reservationsBaseUrl).pipe(
          catchError(this.handleError<Reservation[]>("getReservations", []))
       );
@@ -32,9 +33,9 @@ export class ReservationsService {
       );
    }
 
-   edit(reservation: Reservation): Observable<any> {
-      return this.http.put(this.reservationsBaseUrl, reservation).pipe(
-         catchError(this.handleError<any>("updateReservation"))
+   edit(reservation: ReservationSaveRequest): Observable<Reservation> {
+      return this.http.put<Reservation>(`${this.reservationsBaseUrl}/by/id/${reservation.id}`, reservation).pipe(
+         catchError(this.handleError<Reservation>("updateReservation"))
       );
    }
 
@@ -49,17 +50,6 @@ export class ReservationsService {
          catchError(this.handleError<Reservation[]>("findManyByUserId", []))
       );
    }
-
-   // findBetweenDates(from: Date, to: Date): Observable<Reservation[]> {
-   //    return this.findAll().pipe(
-   //       map((reservations) => {
-   //          return reservations.filter((reservation) =>
-   //             reservation.endsAt >= from
-   //             && reservation.beginsAt <= to
-   //             && reservation.status !== ReservationStatus.APPROVED);
-   //       })
-   //    );
-   // }
 
    private handleError<T>(operation = "operation", result?: T) {
       return (error: any): Observable<T> => {

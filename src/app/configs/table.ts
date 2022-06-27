@@ -1,5 +1,5 @@
 import { TableConfig } from "../components/table/table.types";
-import { ReservationStatus, UserRole } from "../types";
+import { ReservationStatus, UserRole, Vehicle } from "../types";
 
 export const users: TableConfig = {
    headers: [
@@ -20,17 +20,19 @@ export const vehicles = (options: { roles?: UserRole[] }): TableConfig => ({
       { key: "brand", label: "Brand" },
       { key: "model", label: "Model" },
       { key: "plateNumber", label: "Plate #" },
+      { key: "type", label: "Type" },
    ],
    filters: [
       { key: "brand", label: "Brand" },
       { key: "model", label: "Model" },
-      { key: "plateNumber", label: "Plate #" }
+      { key: "plateNumber", label: "Plate #" },
+      { key: "type", label: "Type" },
    ],
    actions: [
       {
-         type: "BOOK_RESERVATION",
-         label: "Reserve",
-         show: () => !!options.roles?.includes(UserRole.ROLE_CUSTOMER)
+         type: "EDIT_VEHICLE",
+         label: "Edit",
+         show: () => !!options.roles?.includes(UserRole.ROLE_ADMIN)
       },
       {
          type: "DELETE_VEHICLE",
@@ -40,13 +42,36 @@ export const vehicles = (options: { roles?: UserRole[] }): TableConfig => ({
    ]
 });
 
+export const availableVehicles = {
+   headers: [
+      { key: "brand", label: "Brand" },
+      { key: "model", label: "Model" },
+      { key: "plateNumber", label: "Plate #" },
+      { key: "type", label: "Type" },
+   ],
+   filters: [
+      { key: "brand", label: "Brand" },
+      { key: "model", label: "Model" },
+      { key: "plateNumber", label: "Plate #" },
+      { key: "type", label: "Type" },
+   ],
+   actions: [
+      {
+         type: "BOOK_RESERVATION",
+         label: "Book reservation",
+         show: () => true
+      }
+   ]
+};
+
 export const reservations: TableConfig = {
    headers: [
-      { key: "userId", label: "userId" },
-      { key: "vehicleId", label: "vehicleId" },
+      {
+         key: "vehicle", label: "vehicle", format: (vehicle: Vehicle) => vehicle.brand + " - " + vehicle.model
+      },
       { key: "beginsAt", label: "beginsAt", format: (date: string) => new Date(date).toLocaleDateString() },
       { key: "endsAt", label: "endsAt", format: (date: string) => new Date(date).toLocaleDateString() },
-      { key: "status", label: "status", format: (status: ReservationStatus) => ReservationStatus[status] }
+      { key: "status", label: "status" }
    ],
    actions: [
       {
@@ -59,11 +84,10 @@ export const reservations: TableConfig = {
 
 export const manageUserReservations: TableConfig = {
    headers: [
-      { key: "userId", label: "userId" },
-      { key: "vehicleId", label: "vehicleId" },
+      { key: "vehicle", label: "vehicle", format: (vehicle: Vehicle) => vehicle.brand + " - " + vehicle.model },
       { key: "beginsAt", label: "beginsAt", format: (date: string) => new Date(date).toLocaleDateString() },
       { key: "endsAt", label: "endsAt", format: (date: string) => new Date(date).toLocaleDateString() },
-      { key: "status", label: "status", format: (status: ReservationStatus) => ReservationStatus[status] }
+      { key: "status", label: "status" }
    ],
    actions: [
       {

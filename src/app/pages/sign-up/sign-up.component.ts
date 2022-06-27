@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import * as formConfig from "../../configs/form";
-import { FormGroup } from "@angular/forms";
 import { UsersService } from "../../services/users.service";
 import { Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
 import { switchMap } from "rxjs";
 import { User, UserRole } from "../../types";
+import { FormGroup } from "@angular/forms";
 
 @Component({
    selector: "app-sign-up",
