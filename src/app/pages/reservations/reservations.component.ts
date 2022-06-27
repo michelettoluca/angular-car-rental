@@ -76,38 +76,41 @@ export class ReservationsComponent implements OnInit {
          userId: id,
          vehicleId: payload.id
       }).subscribe({
-         next: () => this.findAvailableVehicles(this.findAvailableVehiclesForm.value.from, this.findAvailableVehiclesForm.value.to)
+         next: () => {
+            this.findReservations();
+         }
       });
    }
 
    editReservation(form: FormGroup) {
       const { id, user, vehicle, status } = this.selectedReservation!;
+
       const { beginsAt: from, endsAt: to } = form.value;
 
-      console.log({
-         id,
-         from,
-         to,
-         status,
-         userId: user.id!,
-         vehicleId: vehicle.id!,
-      });
+      if (from > to) {
+         this.editReservationError = { code: "", message: "Invalid interval date" };
+         return;
+      }
 
-      this.reservationsService.edit({
-         id,
-         from,
-         to,
-         status,
-         userId: user.id!,
-         vehicleId: vehicle.id!,
-      }).subscribe({
-         next: () => {
-            this.findReservations();
-            this.editReservationError = undefined;
-         }, error: ({ error }) => {
-            console.log(error);
-            this.editReservationError = error;
+
+      this.reservationsService.delete(id).subscribe(
+         {
+            next: () => {
+               this.reservationsService.add({
+                  from,
+                  to,
+                  status,
+                  userId: user.id,
+                  vehicleId: vehicle.id,
+                  ...form.value
+               }).subscribe({
+                  next: () => {
+                     this.findReservations();
+                     this.editReservationError = undefined;
+                  }
+               });
+            }
          }
-      });
+      );
    }
 }

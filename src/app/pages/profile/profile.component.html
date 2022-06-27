@@ -1,3 +1,20 @@
-<app-button [config]="editUserButton"></app-button>
-<app-button [config]="deleteUserButton"></app-button>
-<pre>{{user | json}}</pre>
+<app-button (onClick)="toggleEditUserForm()"
+            [config]="editUserButton">
+
+</app-button>
+
+<app-button (onClick)="handleDelete()"
+            [config]="deleteUserButton">
+</app-button>
+
+<div *ngIf="user">
+   <hr>
+   <h1>{{user.firstName}} {{user.lastName}}</h1>
+   <div *ngIf="editUserForm"
+        class="form">
+      <app-form (onSubmit)="handleEdit($event)"
+                [config]="editUserForm">
+      </app-form>
+   </div>
+</div>
+
