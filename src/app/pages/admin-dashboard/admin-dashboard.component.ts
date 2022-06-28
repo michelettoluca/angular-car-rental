@@ -22,15 +22,18 @@ export class AdminDashboardComponent implements OnInit {
    user?: User;
    reservations?: Reservation[];
 
+   deleteUserButton: ButtonConfig = buttonConfig.deleteUser;
    editUserButton: ButtonConfig = buttonConfig.editUser;
    approveReservationButton: ButtonConfig = buttonConfig.approveReservation;
    denyReservationButton: ButtonConfig = buttonConfig.denyReservation;
    manageReservationsTable: TableConfig = tableConfig.manageUserReservations;
 
    editUserForm?: FormField<any>[];
+   addUserForm: FormField<any>[];
 
    constructor(private usersService: UsersService,
                private reservationsService: ReservationsService) {
+      this.addUserForm = formConfig.signUp;
    }
 
    get ReservationStatus(): typeof ReservationStatus {
@@ -61,7 +64,7 @@ export class AdminDashboardComponent implements OnInit {
          : formConfig.editUser({ defaultValue: this.user });
    }
 
-   handleSubmit(form: FormGroup) {
+   editUser(form: FormGroup) {
       const editedUser: User = {
          role: this.user?.role,
          ...form.value,
@@ -76,6 +79,25 @@ export class AdminDashboardComponent implements OnInit {
          }
       });
    }
+
+   addUser(form: FormGroup) {
+      this.usersService.add(form.value).subscribe({
+         next: () => {
+            this.fetchUsers();
+            form.reset();
+         }
+      });
+   }
+
+   deleteUser() {
+      this.usersService.delete(this.user!.id!).subscribe({
+         next: () => {
+            this.fetchUsers();
+            this.user = undefined;
+         }
+      });
+   }
+
 
    editReservationStatus({ action, payload: reservation }: TableEvent) {
       const status = action === "APPROVE_RESERVATION"

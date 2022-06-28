@@ -3,7 +3,7 @@ import { FormGroup } from "@angular/forms";
 import { VehiclesService } from "../../services/vehicles.service";
 import { AuthService } from "../../services/auth.service";
 import { FormField } from "../../components/form/form.types";
-import { Event, Vehicle } from "../../types";
+import { Event, UserRole, Vehicle } from "../../types";
 import * as tableConfig from "../../configs/table";
 import * as formConfig from "../../configs/form";
 
@@ -25,10 +25,15 @@ export class VehiclesComponent implements OnInit {
    editVehicleForm?: FormField<any>[];
 
    constructor(private vehiclesService: VehiclesService,
-               private authService: AuthService) {
+               public authService: AuthService) {
 
       this.addVehicleFrom = formConfig.addVehicle;
    }
+
+   public get UserRole(): typeof UserRole {
+      return UserRole;
+   }
+
 
    ngOnInit(): void {
       this.fetchData();

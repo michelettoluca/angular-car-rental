@@ -3,8 +3,7 @@ import * as formConfig from "../../configs/form";
 import { UsersService } from "../../services/users.service";
 import { Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
-import { switchMap } from "rxjs";
-import { User, UserRole } from "../../types";
+import { ErrorResponse, User, UserRole } from "../../types";
 import { FormGroup } from "@angular/forms";
 
 @Component({
@@ -15,6 +14,7 @@ import { FormGroup } from "@angular/forms";
 export class SignUpComponent implements OnInit {
 
    signUpConfig = formConfig.signUp;
+   error?: ErrorResponse;
 
    constructor(private router: Router,
                private authService: AuthService,
@@ -26,17 +26,20 @@ export class SignUpComponent implements OnInit {
 
    handleSubmit(form: FormGroup) {
       const user: User = {
-         firstName: form.value.firstName,
-         lastName: form.value.lastName,
-         username: form.value.username,
-         password: form.value.password,
+         ...form.value,
          role: UserRole.ROLE_CUSTOMER,
       };
 
-      this.usersService.add(user).pipe(
-         switchMap(() => this.authService.login(user)),
-      ).subscribe({
-         next: () => this.router.navigate(["profile"])
+      this.usersService.add(user).subscribe({
+         next: () => {
+            this.error = undefined;
+            this.authService.login(user).subscribe({
+               next: () => this.router.navigate(["profile"])
+            });
+         },
+         error: ({ error }) => {
+            this.error = error;
+         }
       });
    }
 }

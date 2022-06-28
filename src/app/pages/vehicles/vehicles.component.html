@@ -1,4 +1,5 @@
 <app-form (onSubmit)="handleAddFormSubmit($event)"
+          *ngIf="authService.currentUser?.roles?.includes(UserRole.ROLE_ADMIN)"
           [config]="addVehicleFrom">
 </app-form>
 

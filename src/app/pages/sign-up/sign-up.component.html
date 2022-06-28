@@ -1,3 +1,7 @@
 <div class="form">
-   <app-form [config]="signUpConfig" (onSubmit)="handleSubmit($event)"></app-form>
+   <div *ngIf="error"
+        class="error">
+      {{error.message}}
+   </div>
+   <app-form (onSubmit)="handleSubmit($event)" [config]="signUpConfig"></app-form>
 </div>

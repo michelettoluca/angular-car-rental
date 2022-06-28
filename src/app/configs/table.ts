@@ -1,5 +1,5 @@
 import { TableConfig } from "../components/table/table.types";
-import { ReservationStatus, UserRole, Vehicle } from "../types";
+import { Reservation, ReservationStatus, UserRole, Vehicle } from "../types";
 
 export const users: TableConfig = {
    headers: [
@@ -77,6 +77,7 @@ export const reservations: TableConfig = {
       {
          type: "EDIT_RESERVATION",
          label: "Edit reservation",
+         show: (reservation: Reservation) => reservation.status !== ReservationStatus.APPROVED
       }
    ]
 };

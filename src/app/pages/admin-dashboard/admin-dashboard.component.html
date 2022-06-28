@@ -1,20 +1,25 @@
-<ul>
-   <div (click)="selectUser(user)"
-        *ngFor="let user of users">
-      {{user.firstName}} {{user.lastName}}
-   </div>
-</ul>
+<app-form (onSubmit)="addUser($event)"
+          [config]="addUserForm">
+</app-form>
+
+<div (click)="selectUser(user)"
+     *ngFor="let user of users">
+   {{user.firstName}} {{user.lastName}}
+</div>
 
 <div *ngIf="user">
    <hr>
    <h1>{{user.firstName}} {{user.lastName}}</h1>
    <app-button (onClick)="toggleEditUserForm()"
                [config]="editUserButton">
-
+   </app-button>
+   
+   <app-button (onClick)="deleteUser()"
+               [config]="deleteUserButton">
    </app-button>
    <div *ngIf="editUserForm"
         class="form">
-      <app-form (onSubmit)="handleSubmit($event)"
+      <app-form (onSubmit)="editUser($event)"
                 [config]="editUserForm">
       </app-form>
    </div>

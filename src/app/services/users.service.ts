@@ -34,9 +34,9 @@ export class UsersService {
    }
 
    add(user: User): Observable<User> {
-      return this.http.post<User>(this.usersBaseUrl, user).pipe(
-         catchError(this.handleError<User>("addUser"))
-      );
+      return this.http.post<User>(this.usersBaseUrl, user);
+      // .pipe(
+      // catchError(this.handleError<User>("addUser")));
    }
 
    edit(user: User): Observable<any> {
